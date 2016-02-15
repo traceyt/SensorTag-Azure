@@ -1,21 +1,30 @@
 ﻿using SensorTagReader.Service;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Windows.Devices.Bluetooth.GenericAttributeProfile;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using X2CodingLab.SensorTag.Sensors;
 
 namespace SensorTagReader
 {
     public sealed partial class MainPage : Page
     {
         DispatcherTimer eventHubWriterTimer;
-        TagReaderService tagreader;
+        //TagReaderService tagreader;
+        List<TagReaderService> tagReaders;
+        DeviceInfoService deviceInfoService;
         EventHubService eventHubService;
         int numberOfCallsDoneToEventHub;
         int numberOfFailedCallsToEventHub;
         double currentSimulatedTemperature = 21.0F;
         Random simulatorRandomizer = new Random();
+
+        // set the horse name and session id
+        string _horseName = "TestHorse";
+        string _sessionID = Guid.NewGuid().ToString();
 
         Windows.Storage.ApplicationDataContainer localSettings;
 
@@ -24,7 +33,8 @@ namespace SensorTagReader
             this.InitializeComponent();
             StatusField.Text = "Please ensure the sensor is connected";
 
-            tagreader = new TagReaderService();
+            tagReaders = new List<TagReaderService>();
+            deviceInfoService = new DeviceInfoService();
 
             eventHubWriterTimer = new DispatcherTimer();
             eventHubWriterTimer.Interval = new TimeSpan(0, 0, 1);
@@ -54,24 +64,33 @@ namespace SensorTagReader
         {
             if ((string)StartCommand.Tag == "STARTED")
             {
-                if (tagreader == null || tagreader.CurrentValues == null)
-                    return;
-
-                txtTemperature.Text = $"{tagreader.CurrentValues.Temperature:N2} C";
-                txtHumidity.Text = $"{tagreader.CurrentValues.Humidity:N2} %";
-
-                try
+                foreach (TagReaderService tagreader in tagReaders)
                 {
-                    await eventHubService.SendMessage(new Messages.EventHubSensorMessage()
+                    if (tagreader == null || tagreader.CurrentValues == null)
+                        return;
+
+                    txtTemperature.Text = $"{tagreader.CurrentValues.Temperature:N2} C";
+                    txtHumidity.Text = $"{tagreader.CurrentValues.Humidity:N2} %";
+
+                    try
                     {
-                        SensorName = SensorNameField.Text,
-                        TimeWhenRecorded = DateTime.Now,
-                        Temperature = tagreader.CurrentValues.Temperature,
-                        Humidity = tagreader.CurrentValues.Humidity
-                    });
-                    numberOfCallsDoneToEventHub++;
+                        await eventHubService.SendMessage(new Messages.EventHubSensorMessage()
+                        {
+                            HorseName = _horseName,
+                            SessionID = _sessionID,
+                            SensorName = SensorNameField.Text,
+                            SensorFriendlyName = tagreader.CurrentValues.SensorFriendlyName,
+                            SensorSystemID = tagreader.CurrentValues.SensorSystemID,
+                            TimeWhenRecorded = DateTime.Now,
+                            Temperature = tagreader.CurrentValues.Temperature,
+                            Humidity = tagreader.CurrentValues.Humidity,
+                            Movement = tagreader.CurrentValues.Movement
+                        });
+                        numberOfCallsDoneToEventHub++;
+                    }
+                    catch { numberOfFailedCallsToEventHub++; }
                 }
-                catch { numberOfFailedCallsToEventHub++; }
+
             }
             else
             {
@@ -131,7 +150,20 @@ namespace SensorTagReader
 
         private async Task startTracking()
         {
-            await tagreader.InitializeSensor();
+            // get the list of devices to track
+            await deviceInfoService.Initialize();
+
+            SensorInformation.Text = "";
+            foreach (GattDeviceService deviceService in deviceInfoService.deviceServices)
+            {
+                TagReaderService tagReader = new TagReaderService();
+                await tagReader.InitializeSensor();
+                SensorInformation.Text += await tagReader.GetSensorID(deviceService);
+                if (tagReader != null)
+                    this.tagReaders.Add(tagReader);
+            }
+
+
             eventHubService = new EventHubService(ServiceBusNamespaceField.Text,
                 EventHubNameField.Text, SharedAccessPolicyNameField.Text, SharedAccessPolicyKeyField.Text);
 
@@ -140,7 +172,8 @@ namespace SensorTagReader
             eventHubWriterTimer.Start();
             StartCommand.Content = "Stop";
             StartCommand.Tag = "STARTED";
-            SensorInformation.Text = await tagreader.GetSensorID();
+
+
             numberOfFailedCallsToEventHub = numberOfCallsDoneToEventHub = 0;
             EventHubInformation.Text = $"Calls: {numberOfCallsDoneToEventHub}, Failed Calls: {numberOfFailedCallsToEventHub}";
         }

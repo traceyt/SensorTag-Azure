@@ -20,7 +20,10 @@ namespace X2CodingLab.SensorTag.Sensors
 {
     public class DeviceInfoService : IDisposable
     {
-        private GattDeviceService deviceService;
+        //private static readonly DeviceInfoService deviceInforService = new DeviceInfoService();
+
+        public GattDeviceService deviceService;
+        public List<GattDeviceService> deviceServices;
         private bool disposed;
 
         public string SensorServiceUuid
@@ -36,14 +39,29 @@ namespace X2CodingLab.SensorTag.Sensors
         /// <exception cref="DeviceNotFoundException">Thrown if there isn't a device which matches the sensor service id.</exception>
         public async Task<bool> Initialize()
         {
-            if (this.deviceService != null)
+            if (this.deviceServices != null)
             {
                 Clean();
             }
-            this.deviceService = await GattUtils.GetDeviceService(SensorTagUuid.UUID_INF_SERV);
-            if (this.deviceService == null)
+            List<DeviceInformation> devicesInfo = await GattUtils.GetDevicesOfService(SensorTagUuid.UUID_INF_SERV);
+            this.deviceServices = new List<GattDeviceService>();
+            foreach (DeviceInformation deviceInfo in devicesInfo)
+            {
+                GattDeviceService _deviceService = await GattDeviceService.FromIdAsync(deviceInfo.Id);
+                if (_deviceService != null) this.deviceServices.Add(_deviceService);
+            }
+            if (this.deviceServices == null)
                 return false;
             return true;
+
+            //DeviceInformation deviceInfo = devices.FirstOrDefault();
+            //this.deviceService = await GattDeviceService.FromIdAsync(deviceInfo.Id);
+
+            // this.deviceService = await GattUtils.GetDeviceService(SensorTagUuid.UUID_INF_SERV);
+            //if (this.deviceService == null)
+            //    return null;
+            //return this.deviceService;
+
         }
 
         /// <summary>
@@ -57,7 +75,7 @@ namespace X2CodingLab.SensorTag.Sensors
             if (!deviceInfo.Id.Contains(SensorTagUuid.UUID_INF_SERV))
                 throw new ArgumentException("Wrong DeviceInformation passed. You need to get the right DeviceInformation via DeviceInfoService.ServiceUuid.");
 
-            if (this.deviceService != null)
+            if (this.deviceServices != null)
             {
                 Clean();
             }

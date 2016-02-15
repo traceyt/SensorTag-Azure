@@ -112,6 +112,7 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Source\SensorIDMappings.cs" />
     <Compile Include="Source\NewSensors\IRTemperatureSensor.cs" />
     <Compile Include="Source\NewSensors\MovementSensor.cs" />
     <Compile Include="Source\NewSensors\SensorBase.cs" />
@@ -126,6 +127,7 @@
     <Compile Include="Source\Sensors\HumiditySensor.cs" />
     <Compile Include="Source\Sensors\IRTemperatureSensor.cs" />
     <Compile Include="Source\Sensors\Magnetometer.cs" />
+    <Compile Include="Source\Sensors\Movement.cs" />
     <Compile Include="Source\Sensors\PressureSensor.cs" />
     <Compile Include="Source\SensorName.cs" />
     <Compile Include="Source\Sensors\SensorBase.cs" />

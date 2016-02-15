@@ -9,7 +9,7 @@ namespace X2CodingLab.SensorTag
     /// <summary>
     /// Provides all Uuid for sensor tag GATT services.
     /// </summary>
-    public class SensorTagUuid
+    public static class SensorTagUuid
     {
         public const string UUID_INF_SERV = "0000180a-0000-1000-8000-00805f9b34fb";
         public const string UUID_INF_SYSID = "00002A23-0000-1000-8000-00805f9b34fb";
