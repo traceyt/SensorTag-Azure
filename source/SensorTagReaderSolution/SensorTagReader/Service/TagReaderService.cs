@@ -71,17 +71,15 @@ namespace SensorTagReader.Service
                     if (_sensorSystemID == SensorIDMappings.Left_Hind) _sensorFriendlyName = "Left Hind";
                     if (_sensorSystemID == SensorIDMappings.Right_Hind) _sensorFriendlyName = "Right Hind";
 
-                    SensorData += "Friendly Name: " + _sensorFriendlyName + "\n";
-                    SensorData += "System ID: " + _sensorSystemID + "\n";
-                    SensorData += "Model Nr: " + await _deviceInfoService.ReadModelNumber() + "\n";
-                    SensorData += "Serial Nr: " + _serialNumber + "\n";
-                    SensorData += "Firmware Revision: " + await _deviceInfoService.ReadFirmwareRevision() + "\n";
-                    SensorData += "Hardware Revision: " + await _deviceInfoService.ReadHardwareRevision() + "\n";
-                    SensorData += "Sofware Revision: " + await _deviceInfoService.ReadSoftwareRevision() + "\n";
-                    SensorData += "Manufacturer Name: " + await _deviceInfoService.ReadManufacturerName() + "\n";
-                    SensorData += "Cert: " + await _deviceInfoService.ReadCert() + "\n";
-                    SensorData += "PNP ID: " + await _deviceInfoService.ReadPnpId();
-                    SensorData += "\n\n";
+                    SensorData += "Sensor: " + _sensorFriendlyName + "(" + _sensorSystemID + ")\n";
+                    //SensorData += "Model Nr: " + await _deviceInfoService.ReadModelNumber() + "\n";
+                    //SensorData += "Serial Nr: " + _serialNumber + "\n";
+                    SensorData += "Firmware: " + await _deviceInfoService.ReadFirmwareRevision() + "Hardware: " + await _deviceInfoService.ReadHardwareRevision() + "\n";
+                    //SensorData += "Sofware Revision: " + await _deviceInfoService.ReadSoftwareRevision() + "\n";
+                    //SensorData += "Manufacturer Name: " + await _deviceInfoService.ReadManufacturerName() + "\n";
+                    //SensorData += "Cert: " + await _deviceInfoService.ReadCert() + "\n";
+                    //SensorData += "PNP ID: " + await _deviceInfoService.ReadPnpId();
+                    SensorData += "\n";
 
                     // save the friendly name and the system id
                     CurrentValues.SensorFriendlyName = _sensorFriendlyName;

@@ -23,7 +23,6 @@ namespace SensorTagReader
         Random simulatorRandomizer = new Random();
 
         // set the horse name and session id
-        string _horseName = "TestHorse";
         string _sessionID = Guid.NewGuid().ToString();
 
         Windows.Storage.ApplicationDataContainer localSettings;
@@ -42,7 +41,11 @@ namespace SensorTagReader
 
             localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
 
-            if(ServiceBusNamespaceField.Text == string.Empty)    ServiceBusNamespaceField.Text = Convert.ToString(localSettings.Values["ServiceBusNamespaceField"]);
+            if (HorseNameField.Text == string.Empty) HorseNameField.Text = Convert.ToString(localSettings.Values["HorseNameField"]);
+            if (SesssionIDField.Text == string.Empty) SesssionIDField.Text = Guid.NewGuid().ToString(); //Convert.ToString(localSettings.Values["SessionIDField"]);
+
+
+            if (ServiceBusNamespaceField.Text == string.Empty)    ServiceBusNamespaceField.Text = Convert.ToString(localSettings.Values["ServiceBusNamespaceField"]);
             if(EventHubNameField.Text == string.Empty)           EventHubNameField.Text = Convert.ToString(localSettings.Values["EventHubNameField"]);
             if(SharedAccessPolicyNameField.Text == string.Empty) SharedAccessPolicyNameField.Text = Convert.ToString(localSettings.Values["SharedAccessPolicyNameField"]);
             if(SharedAccessPolicyKeyField.Text == string.Empty)  SharedAccessPolicyKeyField.Text = Convert.ToString(localSettings.Values["SharedAccessPolicyKeyField"]);
@@ -76,8 +79,8 @@ namespace SensorTagReader
                     {
                         await eventHubService.SendMessage(new Messages.EventHubSensorMessage()
                         {
-                            HorseName = _horseName,
-                            SessionID = _sessionID,
+                            HorseName = HorseNameField.Text,
+                            SessionID = SesssionIDField.Text,
                             SensorName = SensorNameField.Text,
                             SensorFriendlyName = tagreader.CurrentValues.SensorFriendlyName,
                             SensorSystemID = tagreader.CurrentValues.SensorSystemID,
@@ -230,6 +233,11 @@ namespace SensorTagReader
         private void setNextSimulatedValue()
         {
             currentSimulatedTemperature += simulatorRandomizer.Next(-1, 2) * 0.5;    
+        }
+
+        private void TextBlock_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
