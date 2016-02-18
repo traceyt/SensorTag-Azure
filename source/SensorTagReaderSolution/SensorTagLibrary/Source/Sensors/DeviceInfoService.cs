@@ -47,8 +47,12 @@ namespace X2CodingLab.SensorTag.Sensors
             this.deviceServices = new List<GattDeviceService>();
             foreach (DeviceInformation deviceInfo in devicesInfo)
             {
-                GattDeviceService _deviceService = await GattDeviceService.FromIdAsync(deviceInfo.Id);
-                if (_deviceService != null) this.deviceServices.Add(_deviceService);
+                string name = deviceInfo.Name;
+                if (name == "CC2650 SensorTag" || name == "SensorTag 2.0")
+                {
+                    GattDeviceService _deviceService = await GattDeviceService.FromIdAsync(deviceInfo.Id);
+                    if (_deviceService != null) this.deviceServices.Add(_deviceService);
+                }
             }
             if (this.deviceServices == null)
                 return false;

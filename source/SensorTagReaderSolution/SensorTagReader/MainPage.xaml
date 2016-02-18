@@ -68,9 +68,10 @@
         <StackPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2">
             <TextBlock x:Name="EventHubInformation"></TextBlock>
         </StackPanel>
-        <StackPanel Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="2" Margin="0,22.2,10,-107.2" Width="240" Height="85" VerticalAlignment="Top" >
+        <StackPanel Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="2" Margin="0,22.2,10,-107.2" Width="370" Height="85" VerticalAlignment="Top" >
             <Button  Height="50" x:Name="StartCommand" Tag="STOPPED" Content="Start" Width="100" VerticalAlignment="Center" Margin="10" Click="StartCommand_Click"/>
             <Button  Height="50" x:Name="SimulateCommand" Tag="STOPPED" Content="Simulate" Width="100" VerticalAlignment="Center" Margin="10" Click="SimulateCommand_Click" />
+            <Button  Height="50" x:Name="BuzzerCommand" Tag="BUZZER" Content="Buzzer" Width="100" VerticalAlignment="Center" Margin="10" Click="BuzzerCommand_Click" />
         </StackPanel>
     </Grid>
 </Page>

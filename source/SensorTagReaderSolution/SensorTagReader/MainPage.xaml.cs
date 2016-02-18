@@ -181,6 +181,7 @@ namespace SensorTagReader
             EventHubInformation.Text = $"Calls: {numberOfCallsDoneToEventHub}, Failed Calls: {numberOfFailedCallsToEventHub}";
         }
 
+        #pragma warning disable 1998
         private async Task startSimulation()
         {
             eventHubService = new EventHubService(ServiceBusNamespaceField.Text,
