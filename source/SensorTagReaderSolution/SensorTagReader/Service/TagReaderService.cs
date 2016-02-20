@@ -19,23 +19,30 @@ namespace SensorTagReader.Service
         public double Humidity { get; set; }
         public double Temperature { get; set; }
         public Movement.MovementMeasurement Movement { get; set; }
+        public IOService IOService { get; set; }
+        public DeviceInfoService DeviceInfoService{ get; set; }
     }
 
     public class TagReaderService
     {
-        string _sensorSystemID;
-        string _sensorFriendlyName;
-        HumiditySensor _humiditySensor;
-        IRTemperatureSensor _tempSensor;
-        Movement _movement;
-        DeviceInfoService _deviceInfoService = new DeviceInfoService();
+
+        private string _sensorSystemID;
+        private string _sensorFriendlyName;
+        private HumiditySensor _humiditySensor;
+        private IRTemperatureSensor _tempSensor;
+        private Movement _movement;
+        private DeviceInfoService _deviceInfoService = new DeviceInfoService();
+        private IOService _ioService;
         
-        public SensorValues CurrentValues { get; set; }        
-        public TagReaderService()
+        public SensorValues CurrentValues { get; set; }
+
+
+    public TagReaderService()
         {
             _humiditySensor = new HumiditySensor();
             _tempSensor = new IRTemperatureSensor();
             _movement = new Movement();
+            _ioService = new IOService();
             CurrentValues = new SensorValues();
         }
         public async Task<string> TagsText()
@@ -84,6 +91,9 @@ namespace SensorTagReader.Service
                     // save the friendly name and the system id
                     CurrentValues.SensorFriendlyName = _sensorFriendlyName;
                     CurrentValues.SensorSystemID = _sensorSystemID;
+                    CurrentValues.DeviceInfoService = _deviceInfoService;
+                    CurrentValues.IOService = _ioService;
+                
                     }
                     
                 //}
@@ -102,20 +112,28 @@ namespace SensorTagReader.Service
         }
         public async Task<string> InitializeSensor()
         {
+            await _ioService.Initialize();
+            await _ioService.EnableService();
+
             await _movement.Initialize();
             await _movement.EnableSensor();
+
             await _humiditySensor.Initialize();
             await _humiditySensor.EnableSensor();
+
             await _tempSensor.Initialize();
             await _tempSensor.EnableSensor();
 
             _humiditySensor.SensorValueChanged += SensorValueChanged;
             _tempSensor.SensorValueChanged += SensorValueChanged;
             _movement.SensorValueChanged += SensorValueChanged;
+            _ioService.SensorValueChanged += SensorValueChanged;
 
             await _humiditySensor.EnableNotifications();
             await _tempSensor.EnableNotifications();
             await _movement.EnableNotifications();
+
+
 
             return ("done");
         }
@@ -132,6 +150,7 @@ namespace SensorTagReader.Service
                 case SensorName.Movement:
                     CurrentValues.Movement = Movement.GetMovementMeasurements(e.RawData);
                     break;
+
             }
         }
     }

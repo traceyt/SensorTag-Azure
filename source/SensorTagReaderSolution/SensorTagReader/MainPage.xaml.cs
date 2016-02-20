@@ -3,9 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.Devices.Bluetooth.GenericAttributeProfile;
+using Windows.Devices.Enumeration;
+using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using X2CodingLab.SensorTag;
+using X2CodingLab.SensorTag.Exceptions;
 using X2CodingLab.SensorTag.Sensors;
 
 namespace SensorTagReader
@@ -238,6 +242,28 @@ namespace SensorTagReader
         private void TextBlock_SelectionChanged(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private async void EnableRemote_Click(object sender, RoutedEventArgs e)
+        {
+            await EnableRemote();
+        }
+
+        private async void DisableRemote_Click(object sender, RoutedEventArgs e)
+        {
+            await DisableRemote();
+        }
+
+        private async Task EnableRemote()
+        {
+            // ring buzzer of the first device
+            await tagReaders[0].CurrentValues.IOService.EnableRemote();
+        }
+
+        private async Task DisableRemote()
+        {
+            // ring buzzer of the first device
+            await tagReaders[0].CurrentValues.IOService.DisableRemote();
         }
     }
 }

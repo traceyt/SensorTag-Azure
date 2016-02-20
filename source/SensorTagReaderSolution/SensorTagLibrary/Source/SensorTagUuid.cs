@@ -59,7 +59,17 @@ namespace X2CodingLab.SensorTag
         public const string UUID_MOV_CONF = "f000aa82-0451-4000-b000-000000000000";
         public const string UUID_MOV_PERI = "f000aa83-0451-4000-b000-000000000000";
 
+        public const string UUID_OPT_SERV = "f000aa70-0451-4000-b000-000000000000";
+        public const string UUID_OPT_DATA = "f000aa71-0451-4000-b000-000000000000";
+        public const string UUID_OPT_CONF = "f000aa72-0451-4000-b000-000000000000";
+        public const string UUID_OPT_PERI = "f000aa73-0451-4000-b000-000000000000";
+
         public const string UUID_KEY_SERV = "0000ffe0-0000-1000-8000-00805f9b34fb";
         public const string UUID_KEY_DATA = "0000ffe1-0000-1000-8000-00805f9b34fb";
+
+        public const string UUID_IO_SERV  = "f000aa64-0451-4000-b000-000000000000";
+        public const string UUID_IO_DATA  = "f000aa65-0451-4000-b000-000000000000";
+        public const string UUID_IO_CONF  = "f000aa66-0451-4000-b000-000000000000";
+
     }
 }
