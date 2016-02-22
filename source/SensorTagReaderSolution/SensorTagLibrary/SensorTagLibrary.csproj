@@ -125,6 +125,7 @@
     <Compile Include="Source\Sensors\Accelerometer.cs" />
     <Compile Include="Source\Sensors\Gyroscope.cs" />
     <Compile Include="Source\Sensors\HumiditySensor.cs" />
+    <Compile Include="Source\Sensors\IOService.cs" />
     <Compile Include="Source\Sensors\IRTemperatureSensor.cs" />
     <Compile Include="Source\Sensors\Magnetometer.cs" />
     <Compile Include="Source\Sensors\Movement.cs" />

@@ -22,6 +22,7 @@ namespace X2CodingLab.SensorTag
         Magnetometer,
         PressureSensor,
         SimpleKeyService,
+        IOService,
         Movement
     }
 }

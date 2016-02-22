@@ -16,68 +16,68 @@ namespace X2CodingLab.SensorTag.Sensors
         [FlagsAttribute]
         public enum MovementFlags
         {
-            None = 0,
+            //None = 0,
 
-            /// <summary>
-            /// Enable Gyro X-Axis
-            /// </summary>
-            GyroX = 1,
+            ///// <summary>
+            ///// Enable Gyro X-Axis
+            ///// </summary>
+            //GyroX = 1,
 
-            /// <summary>
-            /// Enable Gyro Y-Axis
-            /// </summary>
-            GyroY = 2,
+            ///// <summary>
+            ///// Enable Gyro Y-Axis
+            ///// </summary>
+            //GyroY = 2,
 
-            /// <summary>
-            /// Enable Gyro Z-Axis
-            /// </summary>
-            GyroZ = 4,
+            ///// <summary>
+            ///// Enable Gyro Z-Axis
+            ///// </summary>
+            //GyroZ = 4,
 
-            /// <summary>
-            /// Enable Accelerometer X-Axis
-            /// </summary>
-            AccelX = 8,
-            /// <summary>
-            /// Enable Accelerometer Y-Axis
-            /// </summary>
-            /// 
-            AccelY = 0x10,
+            ///// <summary>
+            ///// Enable Accelerometer X-Axis
+            ///// </summary>
+            //AccelX = 8,
+            ///// <summary>
+            ///// Enable Accelerometer Y-Axis
+            ///// </summary>
+            ///// 
+            //AccelY = 0x10,
 
-            /// <summary>
-            /// Enable Accelerometer Z-Axis
-            /// </summary>
-            AccelZ = 0x20,
+            ///// <summary>
+            ///// Enable Accelerometer Z-Axis
+            ///// </summary>
+            //AccelZ = 0x20,
 
-            /// <summary>
-            /// Enable Magnetometer 
-            /// </summary>
-            Mag = 0x40,
+            ///// <summary>
+            ///// Enable Magnetometer 
+            ///// </summary>
+            //Mag = 0x40,
 
-            /// <summary>
-            /// The Wake-On-Motion (WOM) feature allows the MPU to operate with only the accelerometer enabled, but will give an interrupt to the CC2650 when motion is detected. 
-            /// After a shake is detected, the SensorTag will provide movement data for 10 seconds before entering the MPU re-enters low power WOM state
-            /// </summary>
-            WakeOnMotion = 0x80,
+            ///// <summary>
+            ///// The Wake-On-Motion (WOM) feature allows the MPU to operate with only the accelerometer enabled, but will give an interrupt to the CC2650 when motion is detected. 
+            ///// After a shake is detected, the SensorTag will provide movement data for 10 seconds before entering the MPU re-enters low power WOM state
+            ///// </summary>
+            //WakeOnMotion = 0x80,
 
-            /// <summary>
-            /// Accelerometer range (2G)
-            /// </summary>
-            Accel2G = 0,
+            ///// <summary>
+            ///// Accelerometer range (2G)
+            ///// </summary>
+            //Accel2G = 0,
 
-            /// <summary>
-            /// Accelerometer range (4G)
-            /// </summary>
-            Accel4G = 0x100,
+            ///// <summary>
+            ///// Accelerometer range (4G)
+            ///// </summary>
+            //Accel4G = 0x100,
 
-            /// <summary>
-            /// Accelerometer range (8G)
-            /// </summary>
-            Accel8G = 0x200,
+            ///// <summary>
+            ///// Accelerometer range (8G)
+            ///// </summary>
+            //Accel8G = 0x200,
 
-            /// <summary>
-            /// Accelerometer range (16G)
-            /// </summary>
-            Accel16G = 0x300
+            ///// <summary>
+            ///// Accelerometer range (16G)
+            ///// </summary>
+
         }
 
         public class MovementMeasurement
@@ -142,7 +142,8 @@ namespace X2CodingLab.SensorTag.Sensors
         {
             // One bit for each gyro and accelerometer axis (6), magnetometer (1), wake-on-motion enable (1), accelerometer range (2). 
             // Write any bit combination top enable the desired features
-            byte[] _movConfig = BitConverter.GetBytes((ushort)(MovementFlags.WakeOnMotion | MovementFlags.Accel2G | MovementFlags.AccelX | MovementFlags.AccelY | MovementFlags.AccelZ | MovementFlags.GyroX | MovementFlags.GyroY | MovementFlags.GyroZ));
+            //byte[] _movConfig = BitConverter.GetBytes((ushort)(MovementFlags.WakeOnMotion | MovementFlags.Accel2G | MovementFlags.AccelX | MovementFlags.AccelY | MovementFlags.AccelZ | MovementFlags.GyroX | MovementFlags.GyroY | MovementFlags.GyroZ));
+            byte[] _movConfig = new byte[] { (byte)0x7F, (byte)0x00 };
             await base.EnableSensor(_movConfig);
         }
 
