@@ -1,21 +1,32 @@
 ﻿using SensorTagReader.Service;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Devices.Bluetooth.GenericAttributeProfile;
-using Windows.Devices.Enumeration;
-using Windows.Storage.Streams;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using X2CodingLab.SensorTag;
-using X2CodingLab.SensorTag.Exceptions;
 using X2CodingLab.SensorTag.Sensors;
 
-namespace SensorTagReader
+// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
+
+namespace SensorTagReader.Pages
 {
-    public sealed partial class MainPage : Page
+    /// <summary>
+    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// </summary>
+    public sealed partial class HomePage : Page
     {
+
         DispatcherTimer eventHubWriterTimer;
         //TagReaderService tagreader;
         List<TagReaderService> tagReaders;
@@ -31,7 +42,7 @@ namespace SensorTagReader
 
         Windows.Storage.ApplicationDataContainer localSettings;
 
-        public MainPage()
+        public HomePage()
         {
             this.InitializeComponent();
             StatusField.Text = "Please ensure the sensor is connected";
@@ -49,11 +60,11 @@ namespace SensorTagReader
             if (SesssionIDField.Text == string.Empty) SesssionIDField.Text = Guid.NewGuid().ToString(); //Convert.ToString(localSettings.Values["SessionIDField"]);
 
 
-            if (ServiceBusNamespaceField.Text == string.Empty)    ServiceBusNamespaceField.Text = Convert.ToString(localSettings.Values["ServiceBusNamespaceField"]);
-            if(EventHubNameField.Text == string.Empty)           EventHubNameField.Text = Convert.ToString(localSettings.Values["EventHubNameField"]);
-            if(SharedAccessPolicyNameField.Text == string.Empty) SharedAccessPolicyNameField.Text = Convert.ToString(localSettings.Values["SharedAccessPolicyNameField"]);
-            if(SharedAccessPolicyKeyField.Text == string.Empty)  SharedAccessPolicyKeyField.Text = Convert.ToString(localSettings.Values["SharedAccessPolicyKeyField"]);
-            if(SensorNameField.Text == string.Empty)             SensorNameField.Text = Convert.ToString(localSettings.Values["SensorNameField"]);
+            if (ServiceBusNamespaceField.Text == string.Empty) ServiceBusNamespaceField.Text = Convert.ToString(localSettings.Values["ServiceBusNamespaceField"]);
+            if (EventHubNameField.Text == string.Empty) EventHubNameField.Text = Convert.ToString(localSettings.Values["EventHubNameField"]);
+            if (SharedAccessPolicyNameField.Text == string.Empty) SharedAccessPolicyNameField.Text = Convert.ToString(localSettings.Values["SharedAccessPolicyNameField"]);
+            if (SharedAccessPolicyKeyField.Text == string.Empty) SharedAccessPolicyKeyField.Text = Convert.ToString(localSettings.Values["SharedAccessPolicyKeyField"]);
+            // if("SensorData" == string.Empty)             SensorNameField.Text = Convert.ToString(localSettings.Values["SensorNameField"]);
 
             getVersionNumberOfApp();
 
@@ -76,8 +87,8 @@ namespace SensorTagReader
                     if (tagreader == null || tagreader.CurrentValues == null)
                         return;
 
-                    txtTemperature.Text = $"{tagreader.CurrentValues.Temperature:N2} C";
-                    txtHumidity.Text = $"{tagreader.CurrentValues.Humidity:N2} %";
+                    //txtTemperature.Text = $"{tagreader.CurrentValues.Temperature:N2} C";
+                    //txtHumidity.Text = $"{tagreader.CurrentValues.Humidity:N2} %";
 
                     try
                     {
@@ -85,7 +96,7 @@ namespace SensorTagReader
                         {
                             HorseName = HorseNameField.Text,
                             SessionID = SesssionIDField.Text,
-                            SensorName = SensorNameField.Text,
+                            SensorName = "SensorData", //SensorNameField.Text,
                             SensorFriendlyName = tagreader.CurrentValues.SensorFriendlyName,
                             SensorSystemID = tagreader.CurrentValues.SensorSystemID,
                             TimeWhenRecorded = DateTime.Now,
@@ -103,13 +114,13 @@ namespace SensorTagReader
             {
                 setNextSimulatedValue();
 
-                txtTemperature.Text = $"{currentSimulatedTemperature:N2} C";
+                // txtTemperature.Text = $"{currentSimulatedTemperature:N2} C";
 
                 try
                 {
                     await eventHubService.SendMessage(new Messages.EventHubSensorMessage()
                     {
-                        SensorName = SensorNameField.Text,
+                        SensorName = "SensorData", // SensorNameField.Text,
                         TimeWhenRecorded = DateTime.Now,
                         Temperature = currentSimulatedTemperature,
                         Humidity = 50
@@ -131,7 +142,7 @@ namespace SensorTagReader
 
         private async void StartCommand_Click(object sender, RoutedEventArgs e)
         {
-            if((string)StartCommand.Tag == "STOPPED")
+            if ((string)StartCommand.Tag == "STOPPED")
             {
                 try
                 {
@@ -185,58 +196,58 @@ namespace SensorTagReader
             EventHubInformation.Text = $"Calls: {numberOfCallsDoneToEventHub}, Failed Calls: {numberOfFailedCallsToEventHub}";
         }
 
-        private async Task startSimulation()
-        {
-            eventHubService = new EventHubService(ServiceBusNamespaceField.Text,
-                EventHubNameField.Text, SharedAccessPolicyNameField.Text, SharedAccessPolicyKeyField.Text);
+        //private async Task startSimulation()
+        //{
+        //    eventHubService = new EventHubService(ServiceBusNamespaceField.Text,
+        //        EventHubNameField.Text, SharedAccessPolicyNameField.Text, SharedAccessPolicyKeyField.Text);
 
-            SimulateCommand.Content = "Stop";
-            SimulateCommand.Tag = "STARTED";
-            txtError.Text = "";
-            eventHubWriterTimer.Start();
-            numberOfFailedCallsToEventHub = numberOfCallsDoneToEventHub = 0;
-            EventHubInformation.Text = $"Calls: {numberOfCallsDoneToEventHub}, Failed Calls: {numberOfFailedCallsToEventHub}";
-        }
+        //    //SimulateCommand.Content = "Stop";
+        //    SimulateCommand.Tag = "STARTED";
+        //    txtError.Text = "";
+        //    eventHubWriterTimer.Start();
+        //    numberOfFailedCallsToEventHub = numberOfCallsDoneToEventHub = 0;
+        //    EventHubInformation.Text = $"Calls: {numberOfCallsDoneToEventHub}, Failed Calls: {numberOfFailedCallsToEventHub}";
+        //}
 
-        private void stopSimulation()
-        {
-            SimulateCommand.Content = "Start";
-            SimulateCommand.Tag = "STOPPED";
-            eventHubWriterTimer.Stop();
-        }
+        //private void stopSimulation()
+        //{
+        //    SimulateCommand.Content = "Start";
+        //    SimulateCommand.Tag = "STOPPED";
+        //    eventHubWriterTimer.Stop();
+        //}
 
         private void OnSettingsChanged(object sender, RoutedEventArgs e)
         {
             TextBox textBox = sender as TextBox;
-            if(textBox != null)
+            if (textBox != null)
             {
                 localSettings.Values[textBox.Name] = textBox.Text;
                 stopTracking();
             }
         }
 
-        private async void SimulateCommand_Click(object sender, RoutedEventArgs e)
-        {
-            if ((string)SimulateCommand.Tag == "STOPPED")
-            {
-                try
-                {
-                    await startSimulation();
-                }
-                catch (Exception ex)
-                {
-                    txtError.Text = ex.Message;
-                }
-            }
-            else
-            {
-                stopSimulation();
-            }
-        }
+        //private async void SimulateCommand_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if ((string)SimulateCommand.Tag == "STOPPED")
+        //    {
+        //        try
+        //        {
+        //            await startSimulation();
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            txtError.Text = ex.Message;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        stopSimulation();
+        //    }
+        //}
 
         private void setNextSimulatedValue()
         {
-            currentSimulatedTemperature += simulatorRandomizer.Next(-1, 2) * 0.5;    
+            currentSimulatedTemperature += simulatorRandomizer.Next(-1, 2) * 0.5;
         }
 
         private void TextBlock_SelectionChanged(object sender, RoutedEventArgs e)
@@ -264,6 +275,41 @@ namespace SensorTagReader
         {
             // ring buzzer of the first device
             await tagReaders[0].CurrentValues.IOService.DisableRemote();
+        }
+
+        private void HamburgerButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void OnMenuButtonClicked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void OnHomeButtonChecked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void OnSearchButtonChecked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void OnSettingsButtonChecked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void OnAboutButtonChecked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SimulateCommand_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

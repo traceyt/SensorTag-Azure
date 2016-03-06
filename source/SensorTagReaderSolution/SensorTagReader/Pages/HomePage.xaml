@@ -1,16 +1,14 @@
 ﻿<Page
-    x:Class="SensorTagReader.MainPage"
+    x:Class="SensorTagReader.Pages.HomePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:SensorTagReader"
+    xmlns:local="using:SensorTagReader.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:converters="using:SensorTagReader.Converters"
-    mc:Ignorable="d" Width="808" Height="1024">
+    mc:Ignorable="d"
+    Height="1280"
+    Width="768">
 
-    <Page.Resources>
-        <converters:BusyToVisibilityConverter x:Key="BusyToVisibilityConverter"/>
-    </Page.Resources>
 
     <Grid Background="White" Width="800" Margin="4,0,4,159"  >
         <Grid.RowDefinitions>
@@ -68,7 +66,7 @@
         <StackPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2">
             <TextBlock x:Name="EventHubInformation"></TextBlock>
         </StackPanel>
-        <StackPanel Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,22.2,10,-107.2" Width="auto" Height="85" VerticalAlignment="Top" >
+        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right" Grid.ColumnSpan="3" Margin="0,376,320,0" Width="auto" Height="85" VerticalAlignment="Top" >
             <Button  Height="50" x:Name="StartCommand" Tag="STOPPED" Content="Start" Width="100" VerticalAlignment="Center" Margin="10" Click="StartCommand_Click"/>
             <Button  Height="50" x:Name="SimulateCommand" Tag="STOPPED" Content="Simulate" Width="100" VerticalAlignment="Center" Margin="10" Click="SimulateCommand_Click" />
             <Button  Height="50" x:Name="EnableRemoteCommand" Tag="ENABLEREMOTE" Content="Enable &#xD;&#xA;Remote" Width="100" VerticalAlignment="Center" Margin="10" Click="EnableRemote_Click" />
