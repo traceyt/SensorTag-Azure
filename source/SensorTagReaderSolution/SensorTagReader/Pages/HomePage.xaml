@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:SensorTagReader.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Height="640" Width="384">
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Height="540" Width="350">
 
 
 
@@ -18,7 +18,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
@@ -52,7 +52,7 @@
         <StackPanel Grid.Row="6" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2">
             <TextBlock x:Name="EventHubInformation"></TextBlock>
         </StackPanel>
-        <StackPanel Grid.Row="9" Orientation="Horizontal" HorizontalAlignment="Left" Grid.ColumnSpan="2" Width="auto" VerticalAlignment="Bottom" >
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="auto" VerticalAlignment="Bottom" Grid.Row="9" Grid.ColumnSpan="2" >
             <Button  Height="40" x:Name="StartCommand" Tag="STOPPED" Content="Start" Width="64" VerticalAlignment="Center" Margin="10" Click="StartCommand_Click" FontSize="10.667"/>
             <Button  Height="40" x:Name="SimulateCommand" Tag="STOPPED" Content="Simulate" Width="64" VerticalAlignment="Center" Margin="10" Click="SimulateCommand_Click" FontSize="10.667" />
             <Button  Height="40" x:Name="EnableRemoteCommand" Tag="ENABLEREMOTE" Content="Enable &#xD;&#xA;Remote" Width="64" VerticalAlignment="Center" Margin="10" Click="EnableRemote_Click" FontSize="10.667" />
