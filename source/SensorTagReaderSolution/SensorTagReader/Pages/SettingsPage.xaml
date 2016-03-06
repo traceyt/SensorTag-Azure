@@ -8,7 +8,7 @@
     mc:Ignorable="d">
 
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" >
+    <Grid Background="LightGray" Margin="0,0,0,0"  >
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -20,30 +20,20 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="100*"/>
         </Grid.ColumnDefinitions>
-        <TextBlock Text="Sensor Tag Reader" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" x:Name="StatusField"/>
-        <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" TextAlignment="Right" x:Name="VersionField"/>
-        <TextBlock Text="" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" x:Name="txtError" Foreground="Red"/>
-        <StackPanel x:Name="SensorData" Grid.Row="3" Grid.ColumnSpan="3" Margin="10">
+        <TextBlock Text="Settings" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="30,0,0,0" x:Name="StatusField"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="30,0,0,0"  TextAlignment="Right" x:Name="VersionField"/>
+        <TextBlock Text="" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="30,0,0,0"  x:Name="txtError" Foreground="Red"/>
+        <StackPanel x:Name="SensorData" Grid.Row="3" Grid.ColumnSpan="3" Margin="30,0,0,0" >
             <Grid>
-                <TextBlock Text="Temperature" />
                 <TextBlock x:Name="txtTemperature" HorizontalAlignment="Right"/>
-                <Border BorderThickness="0,0,0,1" BorderBrush="Gray"/>
             </Grid>
             <Grid>
-                <TextBlock Text="Humidity" />
                 <TextBlock x:Name="txtHumidity" HorizontalAlignment="Right"/>
-                <Border BorderThickness="0,0,0,1" BorderBrush="Gray"/>
             </Grid>
         </StackPanel>
-        <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="10">
-            <TextBlock>Horse Name</TextBlock>
-            <TextBox x:Name="HorseNameField" LostFocus="OnSettingsChanged"></TextBox>
-            <TextBlock>Session ID</TextBlock>
-            <TextBox x:Name="SesssionIDField" LostFocus="OnSettingsChanged"></TextBox>
-        </StackPanel>
+        <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="10"/>
         <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="10">
             <TextBlock SelectionChanged="TextBlock_SelectionChanged" FontWeight="Bold">EventHub Settings</TextBlock>
             <TextBlock>Servicebus Namespace</TextBlock>
@@ -58,12 +48,10 @@
             <TextBox x:Name="SensorNameField" LostFocus="OnSettingsChanged"></TextBox>
         </StackPanel>
         <StackPanel Grid.Row="5" Grid.Column="2" Margin="10" Height="Auto">
-            <TextBlock Margin="10" FontWeight="Bold">Sensor information</TextBlock>
             <TextBlock Margin="10" FontWeight="Normal" x:Name="SensorInformation" Height="386" />
         </StackPanel>
         <StackPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2">
             <TextBlock x:Name="EventHubInformation"></TextBlock>
         </StackPanel>
-        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right" Grid.ColumnSpan="3" Margin="0,376,1430,0" Width="auto" Height="85" VerticalAlignment="Top" />
     </Grid>
 </Page>

@@ -52,6 +52,11 @@ namespace SensorTagReader
             if (ShellSplitView.Content != null)
                 ((Frame)ShellSplitView.Content).Navigate(typeof(AboutPage));
         }
+
+        private void HamburgerButton_Click(object sender, RoutedEventArgs e)
+        {
+            ShellSplitView.IsPaneOpen = !ShellSplitView.IsPaneOpen;
+        }
     }
 }
     //    DispatcherTimer eventHubWriterTimer;

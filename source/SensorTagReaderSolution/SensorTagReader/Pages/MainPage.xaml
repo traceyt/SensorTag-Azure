@@ -14,26 +14,37 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <SplitView x:Name="ShellSplitView" DisplayMode="CompactOverlay"
+    <Grid>
+        <SplitView x:Name="ShellSplitView" DisplayMode="Overlay"
                IsPaneOpen="False" CompactPaneLength="48" OpenPaneLength="200"
                PaneBackground="Black">
-        <SplitView.Pane>
-            <StackPanel>
-                <!-- Menu (hamburger) button -->
-                <RadioButton Style="{StaticResource SplitViewMenuButtonStyle}" Click="OnMenuButtonClicked" />
 
-                <!-- Home button -->
-                <RadioButton Tag="&#xe10f;" Content="Home" Style="{StaticResource SplitViewNavButtonStyle}" Checked="OnHomeButtonChecked" IsChecked="True" />
+            <SplitView.Pane>
+                <StackPanel Margin="0 48 0 0">
+                    <!-- Home button -->
+                    <RadioButton Tag="&#xe10f;" Content="Home" Style="{StaticResource SplitViewNavButtonStyle}" Checked="OnHomeButtonChecked" IsChecked="True" />
 
-                <!-- Search button -->
-                <RadioButton Tag="&#xe11a;" Content="Search" Style="{StaticResource SplitViewNavButtonStyle}" Checked="OnSearchButtonChecked" />
+                    <!-- Search button -->
+                    <RadioButton Tag="&#xe11a;" Content="Search" Style="{StaticResource SplitViewNavButtonStyle}" Checked="OnSearchButtonChecked" />
 
-                <!-- Settings button -->
-                <RadioButton Tag="&#xe115;" Content="Settings" Style="{StaticResource SplitViewNavButtonStyle}" Checked="OnSettingsButtonChecked" />
+                    <!-- Settings button -->
+                    <RadioButton Tag="&#xe115;" Content="Settings" Style="{StaticResource SplitViewNavButtonStyle}" Checked="OnSettingsButtonChecked" />
 
-                <!-- About button -->
-                <RadioButton Tag="&#xe783;" Content="About" Style="{StaticResource SplitViewNavButtonStyle}" Checked="OnAboutButtonChecked" />
-            </StackPanel>
-        </SplitView.Pane>
-    </SplitView>
+                    <!-- About button -->
+                    <RadioButton Tag="&#xe783;" Content="About" Style="{StaticResource SplitViewNavButtonStyle}" Checked="OnAboutButtonChecked" />
+                </StackPanel>
+            </SplitView.Pane>
+        </SplitView>
+        <!-- Hamburger Button -->
+        <Button x:Name="HamburgerButton"
+                FontFamily="Segoe MDL2 Assets"
+                Content="&#xE700;"
+                Width="40"
+                Height="40"
+                Background="Transparent"
+                Foreground="Red"
+                VerticalAlignment="Top"
+                BorderThickness="0"
+                Click="HamburgerButton_Click" />
+    </Grid>
 </Page>

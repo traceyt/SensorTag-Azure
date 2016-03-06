@@ -60,11 +60,11 @@ namespace SensorTagReader.Pages
             if (SesssionIDField.Text == string.Empty) SesssionIDField.Text = Guid.NewGuid().ToString(); //Convert.ToString(localSettings.Values["SessionIDField"]);
 
 
-            if (ServiceBusNamespaceField.Text == string.Empty) ServiceBusNamespaceField.Text = Convert.ToString(localSettings.Values["ServiceBusNamespaceField"]);
-            if (EventHubNameField.Text == string.Empty) EventHubNameField.Text = Convert.ToString(localSettings.Values["EventHubNameField"]);
-            if (SharedAccessPolicyNameField.Text == string.Empty) SharedAccessPolicyNameField.Text = Convert.ToString(localSettings.Values["SharedAccessPolicyNameField"]);
-            if (SharedAccessPolicyKeyField.Text == string.Empty) SharedAccessPolicyKeyField.Text = Convert.ToString(localSettings.Values["SharedAccessPolicyKeyField"]);
-            // if("SensorData" == string.Empty)             SensorNameField.Text = Convert.ToString(localSettings.Values["SensorNameField"]);
+            //if (ServiceBusNamespaceField.Text == string.Empty) ServiceBusNamespaceField.Text = Convert.ToString(localSettings.Values["ServiceBusNamespaceField"]);
+            //if (EventHubNameField.Text == string.Empty) EventHubNameField.Text = Convert.ToString(localSettings.Values["EventHubNameField"]);
+            //if (SharedAccessPolicyNameField.Text == string.Empty) SharedAccessPolicyNameField.Text = Convert.ToString(localSettings.Values["SharedAccessPolicyNameField"]);
+            //if (SharedAccessPolicyKeyField.Text == string.Empty) SharedAccessPolicyKeyField.Text = Convert.ToString(localSettings.Values["SharedAccessPolicyKeyField"]);
+            //// if("SensorData" == string.Empty)             SensorNameField.Text = Convert.ToString(localSettings.Values["SensorNameField"]);
 
             getVersionNumberOfApp();
 
@@ -182,8 +182,8 @@ namespace SensorTagReader.Pages
             }
 
 
-            eventHubService = new EventHubService(ServiceBusNamespaceField.Text,
-                EventHubNameField.Text, SharedAccessPolicyNameField.Text, SharedAccessPolicyKeyField.Text);
+            //eventHubService = new EventHubService(ServiceBusNamespaceField.Text,
+            //    EventHubNameField.Text, SharedAccessPolicyNameField.Text, SharedAccessPolicyKeyField.Text);
 
             StatusField.Text = "The sensor is connected";
             txtError.Text = "";
