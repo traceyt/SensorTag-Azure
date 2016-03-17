@@ -52,6 +52,8 @@ namespace SensorTagReader.Pages
 
             StatusField.Text = "Please ensure the sensor is connected";
 
+            HorseNameField.Text = app.HorseName;
+
             tagReaders = new List<TagReaderService>();
             deviceInfoService = new DeviceInfoService();
 

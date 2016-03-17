@@ -26,6 +26,7 @@ namespace SensorTagReader
     {
         private Frame _rootFrame;
 
+        Windows.Storage.ApplicationDataContainer localSettings;
 
         public string ServiceBusNamespace { get; set; }
         public string EventHubName { get; set; }
@@ -33,8 +34,8 @@ namespace SensorTagReader
         public string SharedAccessPolicyKey { get; set; }
         public string HorseName { get; set; }
         public string SessionID { get; set; }
+        public string SensorName { get; set; }
 
-        Windows.Storage.ApplicationDataContainer localSettings;
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -102,11 +103,12 @@ namespace SensorTagReader
             if (HorseName == string.Empty) HorseName = Convert.ToString(localSettings.Values["HorseNameField"]);
             if (SessionID == string.Empty) SessionID = Guid.NewGuid().ToString(); //Convert.ToString(localSettings.Values["SessionIDField"]);
 
-            if (ServiceBusNamespace == string.Empty) ServiceBusNamespace = Convert.ToString(localSettings.Values["ServiceBusNamespaceField"]);
-            if (EventHubName == string.Empty) EventHubName = Convert.ToString(localSettings.Values["EventHubNameField"]);
-            if (SharedAccessPolicyName == string.Empty) SharedAccessPolicyName = Convert.ToString(localSettings.Values["SharedAccessPolicyNameField"]);
-            if (SharedAccessPolicyKey == string.Empty) SharedAccessPolicyKey = Convert.ToString(localSettings.Values["SharedAccessPolicyKeyField"]);
-            // if("SensorData" == string.Empty)             SensorNameField.Text = Convert.ToString(localSettings.Values["SensorNameField"]);
+            if (ServiceBusNamespace == null) ServiceBusNamespace = Convert.ToString(localSettings.Values["ServiceBusNamespaceField"]);
+            if (EventHubName == null) EventHubName = Convert.ToString(localSettings.Values["EventHubNameField"]);
+            if (SharedAccessPolicyName == null) SharedAccessPolicyName = Convert.ToString(localSettings.Values["SharedAccessPolicyNameField"]);
+            if (SharedAccessPolicyKey == null) SharedAccessPolicyKey = Convert.ToString(localSettings.Values["SharedAccessPolicyKeyField"]);
+            if (SensorName == null) SensorName = Convert.ToString(localSettings.Values["SensorNameField"]);
+            if (HorseName == null) SensorName = Convert.ToString(localSettings.Values["HorseNameField"]);
 
             getVersionNumberOfApp();
 

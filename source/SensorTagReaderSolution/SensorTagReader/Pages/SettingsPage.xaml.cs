@@ -25,6 +25,8 @@ namespace SensorTagReader.Pages
 
         Windows.Storage.ApplicationDataContainer localSettings;
 
+        App app;
+
 
         public SettingsPage()
         {
@@ -32,33 +34,13 @@ namespace SensorTagReader.Pages
 
             localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
 
-            Application app = Application.Current;
+            app = App.Current as SensorTagReader.App ;
 
-            int a = 1;
-
-            //ServiceBusNamespaceField.Text = app.ServiceBusNamespace;
-
-            //if (ServiceBusNamespaceField.Text == string.Empty)
-            //{
-            //    ServiceBusNamespaceField.Text = Convert.ToString(localSettings.Values["ServiceBusNamespaceField"]);
-            //    ServiceBusNamespace = ServiceBusNamespaceField.Text;
-            //}
-            //if (EventHubNameField.Text == string.Empty)
-            //{
-            //    EventHubNameField.Text = Convert.ToString(localSettings.Values["EventHubNameField"]);
-            //    EventHubName = EventHubNameField.Text;
-            //}
-            //if (SharedAccessPolicyNameField.Text == string.Empty)
-            //{
-            //    SharedAccessPolicyNameField.Text = Convert.ToString(localSettings.Values["SharedAccessPolicyNameField"]);
-            //    SharedAccessPolicyName = SharedAccessPolicyNameField.Text;
-            //}
-            //if (SharedAccessPolicyKeyField.Text == string.Empty)
-            //{
-            //    SharedAccessPolicyKeyField.Text = Convert.ToString(localSettings.Values["SharedAccessPolicyKeyField"]);
-            //    ServSharedAccessPolicyKey = SharedAccessPolicyKeyField.Text;
-            //}
-            // if("SensorData" == string.Empty)             SensorNameField.Text = Convert.ToString(localSettings.Values["SensorNameField"]);
+            ServiceBusNamespaceField.Text = app.ServiceBusNamespace;
+            EventHubNameField.Text = app.EventHubName;
+            SharedAccessPolicyNameField.Text = app.SharedAccessPolicyName;
+            SharedAccessPolicyKeyField.Text = app.SharedAccessPolicyKey;
+            SensorNameField.Text = app.SensorName;
 
             // getVersionNumberOfApp();
 
@@ -80,17 +62,20 @@ namespace SensorTagReader.Pages
             {
                 localSettings.Values[textBox.Name] = textBox.Text;
 
-                //if (textBox.Name == "ServiceBusNamespaceField")
-                //    //ServiceBusNamespace = textBox.Text;
+                if (textBox.Name == "ServiceBusNamespaceField")
+                    app.ServiceBusNamespace = textBox.Text;
 
-                //if (textBox.Name == "EventHubNameField")
-                //    //EventHubName = textBox.Text;
+                if (textBox.Name == "EventHubNameField")
+                    app.EventHubName = textBox.Text;
 
-                //if (textBox.Name == "SharedAccessPolicyNameField")
-                //    //SharedAccessPolicyName = textBox.Text;
+                if (textBox.Name == "SharedAccessPolicyNameField")
+                    app.SharedAccessPolicyName = textBox.Text;
 
-                //if (textBox.Name == "ServSharedAccessPolicyKeyField")
-                //    //ServSharedAccessPolicyKey = textBox.Text;
+                if (textBox.Name == "SharedAccessPolicyKeyField")
+                    app.SharedAccessPolicyKey = textBox.Text;
+
+                if (textBox.Name == "SensorNameField")
+                    app.SensorName = textBox.Text;
 
                 //stopTracking();
             }
