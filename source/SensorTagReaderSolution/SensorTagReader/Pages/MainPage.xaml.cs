@@ -32,13 +32,6 @@ namespace SensorTagReader
                 ((Frame)ShellSplitView.Content).Navigate(typeof(HomePage));
         }
 
-        private void OnSearchButtonChecked(object sender, RoutedEventArgs e)
-        {
-            ShellSplitView.IsPaneOpen = false;
-            if (ShellSplitView.Content != null)
-                ((Frame)ShellSplitView.Content).Navigate(typeof(SearchPage));
-        }
-
         private void OnSettingsButtonChecked(object sender, RoutedEventArgs e)
         {
             ShellSplitView.IsPaneOpen = false;

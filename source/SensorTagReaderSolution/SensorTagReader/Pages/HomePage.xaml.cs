@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using X2CodingLab.SensorTag.Sensors;
 
+
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace SensorTagReader.Pages
@@ -42,9 +43,13 @@ namespace SensorTagReader.Pages
 
         Windows.Storage.ApplicationDataContainer localSettings;
 
+
         public HomePage()
         {
             this.InitializeComponent();
+
+            localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+
             StatusField.Text = "Please ensure the sensor is connected";
 
             tagReaders = new List<TagReaderService>();
@@ -54,29 +59,8 @@ namespace SensorTagReader.Pages
             eventHubWriterTimer.Interval = new TimeSpan(0, 0, 1);
             eventHubWriterTimer.Tick += OnEventHubWriterTimerTick;
 
-            localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-
-            if (HorseNameField.Text == string.Empty) HorseNameField.Text = Convert.ToString(localSettings.Values["HorseNameField"]);
-            if (SesssionIDField.Text == string.Empty) SesssionIDField.Text = Guid.NewGuid().ToString(); //Convert.ToString(localSettings.Values["SessionIDField"]);
-
-
-            //if (ServiceBusNamespaceField.Text == string.Empty) ServiceBusNamespaceField.Text = Convert.ToString(localSettings.Values["ServiceBusNamespaceField"]);
-            //if (EventHubNameField.Text == string.Empty) EventHubNameField.Text = Convert.ToString(localSettings.Values["EventHubNameField"]);
-            //if (SharedAccessPolicyNameField.Text == string.Empty) SharedAccessPolicyNameField.Text = Convert.ToString(localSettings.Values["SharedAccessPolicyNameField"]);
-            //if (SharedAccessPolicyKeyField.Text == string.Empty) SharedAccessPolicyKeyField.Text = Convert.ToString(localSettings.Values["SharedAccessPolicyKeyField"]);
-            //// if("SensorData" == string.Empty)             SensorNameField.Text = Convert.ToString(localSettings.Values["SensorNameField"]);
-
-            getVersionNumberOfApp();
-
         }
 
-        private void getVersionNumberOfApp()
-        {
-            var thisPackage = Windows.ApplicationModel.Package.Current;
-            var version = thisPackage.Id.Version;
-
-            VersionField.Text = $"{version.Major}.{version.Minor}.{version.Build}.{version.Revision}";
-        }
 
         private async void OnEventHubWriterTimerTick(object sender, object e)
         {
@@ -182,8 +166,8 @@ namespace SensorTagReader.Pages
             }
 
 
-            //eventHubService = new EventHubService(ServiceBusNamespaceField.Text,
-            //    EventHubNameField.Text, SharedAccessPolicyNameField.Text, SharedAccessPolicyKeyField.Text);
+            // eventHubService = new EventHubService(ServiceBusNamespace,
+            //EventHubNameField.Text, SharedAccessPolicyNameField.Text, SharedAccessPolicyKeyField.Text);
 
             StatusField.Text = "The sensor is connected";
             txtError.Text = "";

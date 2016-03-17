@@ -8,7 +8,7 @@
 
 
 
-    <Grid Background="{ThemeResource AppBarSeparatorForegroundThemeBrush}" Margin="0,0,0,0" >
+    <Grid Background="Black" Margin="0,0,0,0" >
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -24,39 +24,40 @@
             <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="100*"/>
         </Grid.ColumnDefinitions>
-        <TextBlock Text="Sensor Tag Reader" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="30,0,0,0" x:Name="StatusField"/>
-        <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="30,0,0,0" TextAlignment="Right" x:Name="VersionField"/>
-        <TextBlock Text="" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="30,0,0,0"  x:Name="txtError" Foreground="Red"/>
+        <TextBlock Text="" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="30,0,0,0" x:Name="StatusField" Foreground="White"/>
         <StackPanel x:Name="SensorData" Grid.Row="3" Grid.ColumnSpan="3" Margin="10">
             <Grid>
-                <TextBlock Text="Temperature" />
+                <TextBlock Text="Temperature" Foreground="White" />
                 <TextBlock x:Name="txtTemperature" HorizontalAlignment="Right"/>
-                <Border BorderThickness="0,0,0,1" BorderBrush="Gray"/>
+                <Border BorderThickness="0,0,0,1"/>
             </Grid>
             <Grid>
-                <TextBlock Text="Humidity" />
+                <TextBlock Text="Humidity" Foreground="White" />
                 <TextBlock x:Name="txtHumidity" HorizontalAlignment="Right"/>
-                <Border BorderThickness="0,0,0,1" BorderBrush="Gray"/>
+                <Border BorderThickness="0,0,0,1" />
             </Grid>
         </StackPanel>
         <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="10">
-            <TextBlock>Horse Name</TextBlock>
-            <TextBox x:Name="HorseNameField" LostFocus="OnSettingsChanged"></TextBox>
-            <TextBlock>Session ID</TextBlock>
-            <TextBox x:Name="SesssionIDField" LostFocus="OnSettingsChanged"></TextBox>
+            <TextBlock Foreground="White">Horse Name</TextBlock>
+            <TextBox x:Name="HorseNameField" LostFocus="OnSettingsChanged" Foreground="White" Background="#FFF9F7F7"></TextBox>
+            <TextBlock Foreground="White">Session ID</TextBlock>
+            <TextBox x:Name="SesssionIDField" LostFocus="OnSettingsChanged" Foreground="White"></TextBox>
         </StackPanel>
         <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Height="Auto">
-            <TextBlock Margin="10" FontWeight="Bold">Sensor information</TextBlock>
+            <TextBlock Margin="10" FontWeight="Bold" Foreground="White">Sensor information</TextBlock>
             <TextBlock Margin="10" FontWeight="Normal" x:Name="SensorInformation" />
         </StackPanel>
-        <StackPanel Grid.Row="6" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2">
-            <TextBlock x:Name="EventHubInformation"></TextBlock>
+        <StackPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Background="Black" >
+            <TextBlock Text="" x:Name="txtError" Foreground="Red"/>
+        </StackPanel>
+        <StackPanel Grid.Row="7" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2">
+            <TextBlock x:Name="EventHubInformation" Height="auto" Foreground="White"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="auto" VerticalAlignment="Bottom" Grid.Row="9" Grid.ColumnSpan="2" >
-            <Button  Height="40" x:Name="StartCommand" Tag="STOPPED" Content="Start" Width="64" VerticalAlignment="Center" Margin="10" Click="StartCommand_Click" FontSize="10.667"/>
-            <Button  Height="40" x:Name="SimulateCommand" Tag="STOPPED" Content="Simulate" Width="64" VerticalAlignment="Center" Margin="10" Click="SimulateCommand_Click" FontSize="10.667" />
-            <Button  Height="40" x:Name="EnableRemoteCommand" Tag="ENABLEREMOTE" Content="Enable &#xD;&#xA;Remote" Width="64" VerticalAlignment="Center" Margin="10" Click="EnableRemote_Click" FontSize="10.667" />
-            <Button  Height="40" x:Name="DisableRemoteCommand" Tag="DISABLEREMOTE" Content="Disable &#xD;&#xA;Remote" Width="64" VerticalAlignment="Center" Margin="10" Click="DisableRemote_Click" FontSize="10.667" />
+            <Button  Height="40" x:Name="StartCommand" Tag="STOPPED" Content="Start" Width="64" VerticalAlignment="Center" Margin="10" Click="StartCommand_Click" FontSize="10.667" Foreground="#FF959595" Background="#33595959"/>
+            <Button  Height="40" x:Name="SimulateCommand" Tag="STOPPED" Content="Simulate" Width="64" VerticalAlignment="Center" Margin="10" Click="SimulateCommand_Click" FontSize="10.667" Foreground="#FF959595" Background="#33595959" />
+            <Button  Height="40" x:Name="EnableRemoteCommand" Tag="ENABLEREMOTE" Content="Enable &#xD;&#xA;Remote" Width="64" VerticalAlignment="Center" Margin="10" Click="EnableRemote_Click" FontSize="10.667" Foreground="#FF959595" Background="#33595959" />
+            <Button  Height="40" x:Name="DisableRemoteCommand" Tag="DISABLEREMOTE" Content="Disable &#xD;&#xA;Remote" Width="64" VerticalAlignment="Center" Margin="10" Click="DisableRemote_Click" FontSize="10.667" Foreground="#FF959595" Background="#33595959" />
         </StackPanel>
     </Grid>
 </Page>

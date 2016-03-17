@@ -24,9 +24,6 @@
                     <!-- Home button -->
                     <RadioButton Tag="&#xe10f;" Content="Home" Style="{StaticResource SplitViewNavButtonStyle}" Checked="OnHomeButtonChecked" IsChecked="True" />
 
-                    <!-- Search button -->
-                    <RadioButton Tag="&#xe11a;" Content="Search" Style="{StaticResource SplitViewNavButtonStyle}" Checked="OnSearchButtonChecked" Background="Transparent" />
-
                     <!-- Settings button -->
                     <RadioButton Tag="&#xe115;" Content="Settings" Style="{StaticResource SplitViewNavButtonStyle}" Checked="OnSettingsButtonChecked" />
 

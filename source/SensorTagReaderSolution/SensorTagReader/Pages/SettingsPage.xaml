@@ -8,7 +8,7 @@
     mc:Ignorable="d">
 
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="0,0,0,0"  >
+    <Grid Background="Black" Margin="0,0,0,0"  >
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -22,7 +22,7 @@
             <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="100*"/>
         </Grid.ColumnDefinitions>
-        <TextBlock Text="Settings" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="30,0,0,0" x:Name="StatusField"/>
+        <TextBlock Text="Settings" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="30,0,0,0" x:Name="StatusField" Foreground="White"/>
         <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="30,0,0,0"  TextAlignment="Right" x:Name="VersionField"/>
         <TextBlock Text="" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="30,0,0,0"  x:Name="txtError" Foreground="Red"/>
         <StackPanel x:Name="SensorData" Grid.Row="3" Grid.ColumnSpan="3" Margin="30,0,0,0" >
@@ -34,24 +34,24 @@
             </Grid>
         </StackPanel>
         <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="10"/>
-        <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="10">
-            <TextBlock SelectionChanged="TextBlock_SelectionChanged" FontWeight="Bold">EventHub Settings</TextBlock>
-            <TextBlock Foreground="{ThemeResource TextBoxForegroundHeaderThemeBrush}">Servicebus Namespace</TextBlock>
+        <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="10" Background="Black">
+            <TextBlock SelectionChanged="TextBlock_SelectionChanged" FontWeight="Bold" Foreground="White">EventHub Settings</TextBlock>
+            <TextBlock Foreground="White">Servicebus Namespace</TextBlock>
             <TextBox x:Name="ServiceBusNamespaceField" LostFocus="OnSettingsChanged" TextChanged="ServiceBusNamespaceField_TextChanged"></TextBox>
-            <TextBlock>EventHub Name</TextBlock>
+            <TextBlock Foreground="White">EventHub Name</TextBlock>
             <TextBox x:Name="EventHubNameField" LostFocus="OnSettingsChanged" ></TextBox>
-            <TextBlock>Shared Access Policy Name</TextBlock>
+            <TextBlock Foreground="White">Shared Access Policy Name</TextBlock>
             <TextBox x:Name="SharedAccessPolicyNameField" LostFocus="OnSettingsChanged" ></TextBox>
-            <TextBlock>Shared Access Policy Key</TextBlock>
+            <TextBlock Foreground="White">Shared Access Policy Key</TextBlock>
             <TextBox x:Name="SharedAccessPolicyKeyField" LostFocus="OnSettingsChanged" ></TextBox>
-            <TextBlock FontWeight="Bold">Sensor Name</TextBlock>
+            <TextBlock FontWeight="Bold" Foreground="White">Sensor Name</TextBlock>
             <TextBox x:Name="SensorNameField" LostFocus="OnSettingsChanged"></TextBox>
         </StackPanel>
         <StackPanel Grid.Row="5" Grid.Column="2" Margin="10" Height="Auto">
             <TextBlock Margin="10" FontWeight="Normal" x:Name="SensorInformation" Height="386" />
         </StackPanel>
         <StackPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2">
-            <TextBlock x:Name="EventHubInformation"></TextBlock>
+            <TextBlock x:Name="EventHubInformation" Foreground="Black"></TextBlock>
         </StackPanel>
     </Grid>
 </Page>

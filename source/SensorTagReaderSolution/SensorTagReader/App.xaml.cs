@@ -26,6 +26,16 @@ namespace SensorTagReader
     {
         private Frame _rootFrame;
 
+
+        public string ServiceBusNamespace { get; set; }
+        public string EventHubName { get; set; }
+        public string SharedAccessPolicyName { get; set; }
+        public string SharedAccessPolicyKey { get; set; }
+        public string HorseName { get; set; }
+        public string SessionID { get; set; }
+
+        Windows.Storage.ApplicationDataContainer localSettings;
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -80,8 +90,34 @@ namespace SensorTagReader
                 // parameter
                 _rootFrame.Navigate(typeof(HomePage), e.Arguments);
             }
+
             // Ensure the current window is active
             Window.Current.Activate();
+
+            // ***********************************************
+            // load values from local settings
+            // ***********************************************
+            localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+
+            if (HorseName == string.Empty) HorseName = Convert.ToString(localSettings.Values["HorseNameField"]);
+            if (SessionID == string.Empty) SessionID = Guid.NewGuid().ToString(); //Convert.ToString(localSettings.Values["SessionIDField"]);
+
+            if (ServiceBusNamespace == string.Empty) ServiceBusNamespace = Convert.ToString(localSettings.Values["ServiceBusNamespaceField"]);
+            if (EventHubName == string.Empty) EventHubName = Convert.ToString(localSettings.Values["EventHubNameField"]);
+            if (SharedAccessPolicyName == string.Empty) SharedAccessPolicyName = Convert.ToString(localSettings.Values["SharedAccessPolicyNameField"]);
+            if (SharedAccessPolicyKey == string.Empty) SharedAccessPolicyKey = Convert.ToString(localSettings.Values["SharedAccessPolicyKeyField"]);
+            // if("SensorData" == string.Empty)             SensorNameField.Text = Convert.ToString(localSettings.Values["SensorNameField"]);
+
+            getVersionNumberOfApp();
+
+        }
+
+        private void getVersionNumberOfApp()
+        {
+            var thisPackage = Windows.ApplicationModel.Package.Current;
+            var version = thisPackage.Id.Version;
+
+            //VersionField.Text = $"{version.Major}.{version.Minor}.{version.Build}.{version.Revision}";
         }
 
         /// <summary>
