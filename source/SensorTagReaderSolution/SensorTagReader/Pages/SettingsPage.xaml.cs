@@ -24,7 +24,6 @@ namespace SensorTagReader.Pages
     {
 
         Windows.Storage.ApplicationDataContainer localSettings;
-
         App app;
 
 

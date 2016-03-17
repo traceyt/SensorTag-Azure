@@ -43,6 +43,8 @@ namespace SensorTagReader.Pages
 
         Windows.Storage.ApplicationDataContainer localSettings;
 
+        App app;
+
 
         public HomePage()
         {
@@ -52,6 +54,7 @@ namespace SensorTagReader.Pages
 
             StatusField.Text = "Please ensure the sensor is connected";
 
+            app = App.Current as SensorTagReader.App;
             HorseNameField.Text = app.HorseName;
 
             tagReaders = new List<TagReaderService>();
@@ -207,7 +210,8 @@ namespace SensorTagReader.Pages
             TextBox textBox = sender as TextBox;
             if (textBox != null)
             {
-                localSettings.Values[textBox.Name] = textBox.Text;
+                if (textBox.Name == "HorseNameField")
+                    app.HorseName = textBox.Text;
                 stopTracking();
             }
         }

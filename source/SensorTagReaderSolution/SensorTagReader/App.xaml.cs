@@ -48,6 +48,23 @@ namespace SensorTagReader
             //    Microsoft.ApplicationInsights.WindowsCollectors.Session);
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+
+            // ***********************************************
+            // load values from local settings
+            // ***********************************************
+            localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+
+            if (HorseName == string.Empty) HorseName = Convert.ToString(localSettings.Values["HorseNameField"]);
+            if (SessionID == string.Empty) SessionID = Guid.NewGuid().ToString(); //Convert.ToString(localSettings.Values["SessionIDField"]);
+
+            if (ServiceBusNamespace == null) ServiceBusNamespace = Convert.ToString(localSettings.Values["ServiceBusNamespaceField"]);
+            if (EventHubName == null) EventHubName = Convert.ToString(localSettings.Values["EventHubNameField"]);
+            if (SharedAccessPolicyName == null) SharedAccessPolicyName = Convert.ToString(localSettings.Values["SharedAccessPolicyNameField"]);
+            if (SharedAccessPolicyKey == null) SharedAccessPolicyKey = Convert.ToString(localSettings.Values["SharedAccessPolicyKeyField"]);
+            if (SensorName == null) SensorName = Convert.ToString(localSettings.Values["SensorNameField"]);
+            if (HorseName == null) HorseName = Convert.ToString(localSettings.Values["HorseNameField"]);
+
+            getVersionNumberOfApp();
         }
 
         /// <summary>
@@ -95,22 +112,7 @@ namespace SensorTagReader
             // Ensure the current window is active
             Window.Current.Activate();
 
-            // ***********************************************
-            // load values from local settings
-            // ***********************************************
-            localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
 
-            if (HorseName == string.Empty) HorseName = Convert.ToString(localSettings.Values["HorseNameField"]);
-            if (SessionID == string.Empty) SessionID = Guid.NewGuid().ToString(); //Convert.ToString(localSettings.Values["SessionIDField"]);
-
-            if (ServiceBusNamespace == null) ServiceBusNamespace = Convert.ToString(localSettings.Values["ServiceBusNamespaceField"]);
-            if (EventHubName == null) EventHubName = Convert.ToString(localSettings.Values["EventHubNameField"]);
-            if (SharedAccessPolicyName == null) SharedAccessPolicyName = Convert.ToString(localSettings.Values["SharedAccessPolicyNameField"]);
-            if (SharedAccessPolicyKey == null) SharedAccessPolicyKey = Convert.ToString(localSettings.Values["SharedAccessPolicyKeyField"]);
-            if (SensorName == null) SensorName = Convert.ToString(localSettings.Values["SensorNameField"]);
-            if (HorseName == null) SensorName = Convert.ToString(localSettings.Values["HorseNameField"]);
-
-            getVersionNumberOfApp();
 
         }
 
