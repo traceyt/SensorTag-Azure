@@ -44,7 +44,7 @@
                 x:Name="LineChartWithAxes"
                 Title="Line Chart w/Manually Set Axis Range">
                     <charting:LineSeries
-                    Title="Population"
+                    Title="X Acceleromter"
                     IndependentValueBinding="{Binding Name}"
                     DependentValueBinding="{Binding Value}"
                     IsSelectionEnabled="True" />

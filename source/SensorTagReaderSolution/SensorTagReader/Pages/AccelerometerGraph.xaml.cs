@@ -50,7 +50,8 @@ namespace SensorTagReader.Pages
 
             for (int i = 0; i < NumberOfIitemsNumericUpDown.Value; i++)
             {
-                items.Add(new NameValueItem { Name = "" + i, Value = _random.Next(10, 100) });
+                double _value = System.Convert.ToDouble(_random.Next(10, 100)) / 100;
+                items.Add(new NameValueItem { Name = "X" + i, Value = _value});
             }
 
 
@@ -59,9 +60,9 @@ namespace SensorTagReader.Pages
                 new LinearAxis
                 {
                     Minimum = 0,
-                    Maximum = 100,
+                    Maximum = 1,
                     Orientation = AxisOrientation.Y,
-                    Interval = 20,
+                    Interval = .04,
                     ShowGridLines = true
                 };
         }
@@ -69,7 +70,7 @@ namespace SensorTagReader.Pages
         public class NameValueItem
         {
             public string Name { get; set; }
-            public int Value { get; set; }
+            public double Value { get; set; }
         }
 
 
