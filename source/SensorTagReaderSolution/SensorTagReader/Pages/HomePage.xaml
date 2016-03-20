@@ -20,13 +20,18 @@
                         <Setter Target="MainGrid.RowDefinitions[1].Height" Value="*"/>
                         <Setter Target="MainGrid.RowDefinitions[2].Height" Value="*"/>
                         <Setter Target="MainGrid.ColumnDefinitions[1].Width" Value="*"/>
-                        <Setter Target="FirstGrid.Margin" Value="0 0 6 0"/>
+                        <Setter Target="FirstGrid.Margin" Value="0 0 0 0"/>
                         <Setter Target="SecondGrid.Margin" Value="0 0 0 0"/>
                         <Setter Target="ThirdGrid.Margin" Value="0 0 0 0"/>
                         <Setter Target="SecondGrid.(Grid.Column)" Value="0"/>
                         <Setter Target="SecondGrid.(Grid.Row)" Value="1"/>
+                        <Setter Target="SecondGrid.(Grid.RowSpan)" Value="2"/>
                         <Setter Target="ThirdGrid.(Grid.Column)" Value="1"/>
                         <Setter Target="ThirdGrid.(Grid.Row)" Value="0"/>
+                        <Setter Target="FourthGrid.(Grid.Column)" Value="1"/>
+                        <Setter Target="FourthGrid.(Grid.Row)" Value="1"/>
+                        <Setter Target="FourthGrid.(Grid.RowSpan)" Value="2"/>
+                        <Setter Target="FourthGrid.Visibility" Value="Visible"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="NarrowState">
@@ -35,15 +40,18 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="MainGrid.Margin" Value="12"/>
-                        <Setter Target="FirstGrid.Margin" Value="0 0 0 6"/>
+                        <!--<Setter Target="FirstGrid.Margin" Value="0 0 0 6"/>
                         <Setter Target="SecondGrid.Margin" Value="0 6 0 0"/>
-                        <Setter Target="ThirdGrid.Margin" Value="0 0 0 0"/>
-                        <Setter Target="MainGrid.RowDefinitions[1].Height" Value="*"/>
+                        <Setter Target="ThirdGrid.Margin" Value="0 0 0 0"/>-->
+                        <Setter Target="MainGrid.RowDefinitions[0].Height" Value="4*"/>
+                        <Setter Target="MainGrid.RowDefinitions[1].Height" Value="4*"/>
+                        <Setter Target="MainGrid.RowDefinitions[2].Height" Value="7*"/>
                         <Setter Target="MainGrid.ColumnDefinitions[1].Width" Value="auto"/>
                         <Setter Target="SecondGrid.(Grid.Column)" Value="0"/>
                         <Setter Target="SecondGrid.(Grid.Row)" Value="1"/>
                         <Setter Target="ThirdGrid.(Grid.Column)" Value="0"/>
                         <Setter Target="ThirdGrid.(Grid.Row)" Value="2"/>
+                        <Setter Target="FourthGrid.Visibility" Value="Collapsed"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -56,12 +64,12 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="200"/>
+            <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Grid x:Name="FirstGrid" Grid.Row="0" Background="#0078d7">
+        <Grid x:Name="FirstGrid" Background="#0078d7">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
@@ -78,59 +86,69 @@
                 <TextBlock Foreground="White">Session ID</TextBlock>
                 <TextBox x:Name="SesssionIDField" LostFocus="OnSettingsChanged" Foreground="White"></TextBox>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="auto" VerticalAlignment="Bottom" Grid.Row="2" Background="Black">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Width="auto" VerticalAlignment="Bottom" Grid.Row="2" Background="Black">
                 <Button  Height="40" x:Name="StartCommand" Tag="STOPPED" Content="Start" Width="64" VerticalAlignment="Center" Margin="10" Click="StartCommand_Click" FontSize="10.667" Foreground="#FF959595" Background="#33595959"/>
                 <Button  Height="40" x:Name="SimulateCommand" Tag="STOPPED" Content="Simulate" Width="64" VerticalAlignment="Center" Margin="10" Click="SimulateCommand_Click" FontSize="10.667" Foreground="#FF959595" Background="#33595959" />
                 <Button  Height="40" x:Name="EnableRemoteCommand" Tag="ENABLEREMOTE" Content="Enable &#xD;&#xA;Remote" Width="64" VerticalAlignment="Center" Margin="10" Click="EnableRemote_Click" FontSize="10.667" Foreground="#FF959595" Background="#33595959" />
                 <Button  Height="40" x:Name="DisableRemoteCommand" Tag="DISABLEREMOTE" Content="Disable &#xD;&#xA;Remote" Width="64" VerticalAlignment="Center" Margin="10" Click="DisableRemote_Click" FontSize="10.667" Foreground="#FF959595" Background="#33595959" />
             </StackPanel>
         </Grid>
-        <Grid x:Name="SecondGrid" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Background="#FF1A107C">
+        <Grid x:Name="SecondGrid" Background="#FF1A107C">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition/>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0">
-                <TextBlock FontWeight="Bold" Foreground="White">Sensor information</TextBlock>
-                <TextBlock FontWeight="Normal" x:Name="SensorInformation" />
-            </StackPanel>
-            <StackPanel x:Name="SensorData" Grid.Row="1">
-                <Grid>
-                    <TextBlock Text="Temperature" Foreground="White" />
-                    <TextBlock x:Name="txtTemperature" HorizontalAlignment="Right"/>
-                    <Border BorderThickness="0,0,0,1"/>
-                </Grid>
-                <Grid>
-                    <TextBlock Text="Humidity" Foreground="White" />
-                    <TextBlock x:Name="txtHumidity" HorizontalAlignment="Right"/>
-                    <Border BorderThickness="0,0,0,1" />
-                </Grid>
+            <TextBlock Grid.Row="0" FontWeight="Bold" Foreground="White">Sensor information</TextBlock>
+            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Stretch" Width="auto">
+                <StackPanel>
+                    <TextBlock Text="Temperature" Foreground="White" Width="100"/>
+                    <TextBlock x:Name="txtTemperature" Foreground="White" Text="XXX"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock Text="Humidity" Foreground="White" Width="100" />
+                    <TextBlock x:Name="txtHumidity"  Foreground="White" Text="XXX"/>
+                </StackPanel>
             </StackPanel>
             <StackPanel Grid.Row="2">
+                <TextBlock FontWeight="Normal" x:Name="SensorInformation" Foreground="White" />
+            </StackPanel>
+            <StackPanel Grid.Row="3">
                 <TextBlock Text="" x:Name="txtError" Foreground="Red"/>
             </StackPanel>
-            <StackPanel Grid.Row="3" >
-                <TextBlock x:Name="EventHubInformation" Height="auto" Foreground="White"/>
-            </StackPanel>
         </Grid>
-        <Grid x:Name="ThirdGrid" Grid.Column="1" Grid.Row="2" Grid.RowSpan="3"  Background="#FF7C106D">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
+        <Grid x:Name="ThirdGrid" Background="#FF7C106D">
             <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0">
-                    <TextBlock Text="Messages" Foreground="White" />
-                    <TextBlock x:Name="MessagesSent" TextWrapping="Wrap"/>
+                    <TextBlock Text="Call Info" Foreground="White"/>
+                    <TextBlock x:Name="EventHubInformation" Foreground="White"/>
                 </StackPanel>
+                <StackPanel Grid.Row="1">
+                    <TextBlock Text="Messages" Foreground="White" />
+                    <TextBlock x:Name="MessagesSent" TextWrapping="Wrap" Foreground="White"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <Grid x:Name="FourthGrid" Background="Gray" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
             </Grid>
         </Grid>
     </Grid>
