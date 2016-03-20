@@ -1,0 +1,54 @@
+﻿<UserControl
+    x:Class="SensorTagReader.Pages.AccelerometerGraph"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SensorTagReader.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:controls="using:WinRTXamlToolkit.Controls"
+    xmlns:charting="using:WinRTXamlToolkit.Controls.DataVisualization.Charting"
+    xmlns:Series="using:WinRTXamlToolkit.Controls.DataVisualization.Charting"
+    xmlns:datavis="using:WinRTXamlToolkit.Controls.DataVisualization">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <StackPanel
+                Orientation="Horizontal">
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Text="Number of items"/>
+                <controls:NumericUpDown
+                    x:Name="NumberOfIitemsNumericUpDown"
+                    Margin="5,0"
+                    Width="200"
+                    Minimum="0"
+                    Maximum="50"
+                    Value="5"
+                    ValueFormat="F0"
+                    SmallChange="1"
+                    LargeChange="1"
+                    ValueChanged="NumberOfIitemsNumericUpDown_ValueChanged" />
+                <controls:ToolStrip>
+                    <controls:ToolBarButton
+                    Content="Update"
+                    Click="OnUpdateButtonClick" />
+                </controls:ToolStrip>
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="LineChartFlip" Grid.Row="1" >
+                <charting:Chart
+                x:Name="LineChartWithAxes"
+                Title="Line Chart w/Manually Set Axis Range">
+                    <charting:LineSeries
+                    Title="Population"
+                    IndependentValueBinding="{Binding Name}"
+                    DependentValueBinding="{Binding Value}"
+                    IsSelectionEnabled="True" />
+                </charting:Chart>
+            </Grid>
+        </Grid>
+</UserControl>

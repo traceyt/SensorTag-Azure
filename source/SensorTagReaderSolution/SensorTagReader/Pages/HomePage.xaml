@@ -5,6 +5,7 @@
     xmlns:local="using:SensorTagReader.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:graph="using:SensorTagReader.Pages"
     mc:Ignorable="d">
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" x:Name="MainGrid">
 
@@ -19,7 +20,8 @@
                         <Setter Target="MainGrid.RowDefinitions[0].Height" Value="*"/>
                         <Setter Target="MainGrid.RowDefinitions[1].Height" Value="*"/>
                         <Setter Target="MainGrid.RowDefinitions[2].Height" Value="*"/>
-                        <Setter Target="MainGrid.ColumnDefinitions[1].Width" Value="*"/>
+                        <Setter Target="MainGrid.ColumnDefinitions[0].Width" Value="1*"/>
+                        <Setter Target="MainGrid.ColumnDefinitions[1].Width" Value="2*"/>
                         <Setter Target="FirstGrid.Margin" Value="0 0 0 0"/>
                         <Setter Target="SecondGrid.Margin" Value="0 0 0 0"/>
                         <Setter Target="ThirdGrid.Margin" Value="0 0 0 0"/>
@@ -141,15 +143,7 @@
             </Grid>
         </Grid>
         <Grid x:Name="FourthGrid" Background="Gray" >
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50" />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-            </Grid>
+            <graph:AccelerometerGraph></graph:AccelerometerGraph>
         </Grid>
     </Grid>
 </Page>
