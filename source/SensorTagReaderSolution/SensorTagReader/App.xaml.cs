@@ -35,6 +35,7 @@ namespace SensorTagReader
         public string HorseName { get; set; }
         public string SessionID { get; set; }
         public string SensorName { get; set; }
+        public string Messages { get; set; }
 
 
         /// <summary>
@@ -63,6 +64,8 @@ namespace SensorTagReader
             if (SharedAccessPolicyKey == null) SharedAccessPolicyKey = Convert.ToString(localSettings.Values["SharedAccessPolicyKeyField"]);
             if (SensorName == null) SensorName = Convert.ToString(localSettings.Values["SensorNameField"]);
             if (HorseName == null) HorseName = Convert.ToString(localSettings.Values["HorseNameField"]);
+
+            Messages = "";
 
             getVersionNumberOfApp();
         }

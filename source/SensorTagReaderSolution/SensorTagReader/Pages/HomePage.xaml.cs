@@ -52,10 +52,16 @@ namespace SensorTagReader.Pages
 
             localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
 
-            StatusField.Text = "Please ensure the sensor is connected";
+            //StatusField.Text = "Please ensure the sensor is connected";
 
             app = App.Current as SensorTagReader.App;
-            HorseNameField.Text = app.HorseName;
+
+            if (app.HorseName != null) HorseNameField.Text = app.HorseName;
+            if (app.SessionID != null)
+                SesssionIDField.Text = app.SessionID;
+            else
+                SesssionIDField.Text = _sessionID;
+
 
             tagReaders = new List<TagReaderService>();
             deviceInfoService = new DeviceInfoService();
@@ -94,6 +100,7 @@ namespace SensorTagReader.Pages
                             Movement = tagreader.CurrentValues.Movement
                         });
                         numberOfCallsDoneToEventHub++;
+                        MessagesSent.Text = app.Messages;
                     }
                     catch { numberOfFailedCallsToEventHub++; }
                 }
@@ -171,10 +178,10 @@ namespace SensorTagReader.Pages
             }
 
 
-            // eventHubService = new EventHubService(ServiceBusNamespace,
-            //EventHubNameField.Text, SharedAccessPolicyNameField.Text, SharedAccessPolicyKeyField.Text);
+            eventHubService = new EventHubService(app.ServiceBusNamespace,
+            app.EventHubName, app.SharedAccessPolicyName, app.SharedAccessPolicyKey);
 
-            StatusField.Text = "The sensor is connected";
+            //StatusField.Text = "The sensor is connected";
             txtError.Text = "";
             eventHubWriterTimer.Start();
             StartCommand.Content = "Stop";

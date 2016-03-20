@@ -4,60 +4,134 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:SensorTagReader.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Height="540" Width="350">
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" x:Name="MainGrid">
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="WideState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="769" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="MainGrid.Margin" Value="24"/>
+                        <Setter Target="MainGrid.RowDefinitions[0].Height" Value="*"/>
+                        <Setter Target="MainGrid.RowDefinitions[1].Height" Value="*"/>
+                        <Setter Target="MainGrid.RowDefinitions[2].Height" Value="*"/>
+                        <Setter Target="MainGrid.ColumnDefinitions[1].Width" Value="*"/>
+                        <Setter Target="FirstGrid.Margin" Value="0 0 6 0"/>
+                        <Setter Target="SecondGrid.Margin" Value="0 0 0 0"/>
+                        <Setter Target="ThirdGrid.Margin" Value="0 0 0 0"/>
+                        <Setter Target="SecondGrid.(Grid.Column)" Value="0"/>
+                        <Setter Target="SecondGrid.(Grid.Row)" Value="1"/>
+                        <Setter Target="ThirdGrid.(Grid.Column)" Value="1"/>
+                        <Setter Target="ThirdGrid.(Grid.Row)" Value="0"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="NarrowState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="MainGrid.Margin" Value="12"/>
+                        <Setter Target="FirstGrid.Margin" Value="0 0 0 6"/>
+                        <Setter Target="SecondGrid.Margin" Value="0 6 0 0"/>
+                        <Setter Target="ThirdGrid.Margin" Value="0 0 0 0"/>
+                        <Setter Target="MainGrid.RowDefinitions[1].Height" Value="*"/>
+                        <Setter Target="MainGrid.ColumnDefinitions[1].Width" Value="auto"/>
+                        <Setter Target="SecondGrid.(Grid.Column)" Value="0"/>
+                        <Setter Target="SecondGrid.(Grid.Row)" Value="1"/>
+                        <Setter Target="ThirdGrid.(Grid.Column)" Value="0"/>
+                        <Setter Target="ThirdGrid.(Grid.Row)" Value="2"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
 
 
 
-    <Grid Background="Black" Margin="0,0,0,0" >
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="100*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TextBlock Text="" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="30,0,0,0" x:Name="StatusField" Foreground="White"/>
-        <StackPanel x:Name="SensorData" Grid.Row="3" Grid.ColumnSpan="3" Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200"/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="FirstGrid" Grid.Row="0" Background="#0078d7">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0">
+                <TextBlock Foreground="White">Horse Name</TextBlock>
+                <TextBox x:Name="HorseNameField" LostFocus="OnSettingsChanged" Foreground="White" Background="#FFF9F7F7"></TextBox>
+            </StackPanel>
+            <StackPanel Grid.Row="1">
+                <TextBlock Foreground="White">Session ID</TextBlock>
+                <TextBox x:Name="SesssionIDField" LostFocus="OnSettingsChanged" Foreground="White"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="auto" VerticalAlignment="Bottom" Grid.Row="2" Background="Black">
+                <Button  Height="40" x:Name="StartCommand" Tag="STOPPED" Content="Start" Width="64" VerticalAlignment="Center" Margin="10" Click="StartCommand_Click" FontSize="10.667" Foreground="#FF959595" Background="#33595959"/>
+                <Button  Height="40" x:Name="SimulateCommand" Tag="STOPPED" Content="Simulate" Width="64" VerticalAlignment="Center" Margin="10" Click="SimulateCommand_Click" FontSize="10.667" Foreground="#FF959595" Background="#33595959" />
+                <Button  Height="40" x:Name="EnableRemoteCommand" Tag="ENABLEREMOTE" Content="Enable &#xD;&#xA;Remote" Width="64" VerticalAlignment="Center" Margin="10" Click="EnableRemote_Click" FontSize="10.667" Foreground="#FF959595" Background="#33595959" />
+                <Button  Height="40" x:Name="DisableRemoteCommand" Tag="DISABLEREMOTE" Content="Disable &#xD;&#xA;Remote" Width="64" VerticalAlignment="Center" Margin="10" Click="DisableRemote_Click" FontSize="10.667" Foreground="#FF959595" Background="#33595959" />
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="SecondGrid" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Background="#FF1A107C">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0">
+                <TextBlock FontWeight="Bold" Foreground="White">Sensor information</TextBlock>
+                <TextBlock FontWeight="Normal" x:Name="SensorInformation" />
+            </StackPanel>
+            <StackPanel x:Name="SensorData" Grid.Row="1">
+                <Grid>
+                    <TextBlock Text="Temperature" Foreground="White" />
+                    <TextBlock x:Name="txtTemperature" HorizontalAlignment="Right"/>
+                    <Border BorderThickness="0,0,0,1"/>
+                </Grid>
+                <Grid>
+                    <TextBlock Text="Humidity" Foreground="White" />
+                    <TextBlock x:Name="txtHumidity" HorizontalAlignment="Right"/>
+                    <Border BorderThickness="0,0,0,1" />
+                </Grid>
+            </StackPanel>
+            <StackPanel Grid.Row="2">
+                <TextBlock Text="" x:Name="txtError" Foreground="Red"/>
+            </StackPanel>
+            <StackPanel Grid.Row="3" >
+                <TextBlock x:Name="EventHubInformation" Height="auto" Foreground="White"/>
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="ThirdGrid" Grid.Column="1" Grid.Row="2" Grid.RowSpan="3"  Background="#FF7C106D">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
             <Grid>
-                <TextBlock Text="Temperature" Foreground="White" />
-                <TextBlock x:Name="txtTemperature" HorizontalAlignment="Right"/>
-                <Border BorderThickness="0,0,0,1"/>
+                <StackPanel Grid.Row="0">
+                    <TextBlock Text="Messages" Foreground="White" />
+                    <TextBlock x:Name="MessagesSent" TextWrapping="Wrap"/>
+                </StackPanel>
             </Grid>
-            <Grid>
-                <TextBlock Text="Humidity" Foreground="White" />
-                <TextBlock x:Name="txtHumidity" HorizontalAlignment="Right"/>
-                <Border BorderThickness="0,0,0,1" />
-            </Grid>
-        </StackPanel>
-        <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="10">
-            <TextBlock Foreground="White">Horse Name</TextBlock>
-            <TextBox x:Name="HorseNameField" LostFocus="OnSettingsChanged" Foreground="White" Background="#FFF9F7F7"></TextBox>
-            <TextBlock Foreground="White">Session ID</TextBlock>
-            <TextBox x:Name="SesssionIDField" LostFocus="OnSettingsChanged" Foreground="White"></TextBox>
-        </StackPanel>
-        <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Height="Auto">
-            <TextBlock Margin="10" FontWeight="Bold" Foreground="White">Sensor information</TextBlock>
-            <TextBlock Margin="10" FontWeight="Normal" x:Name="SensorInformation" />
-        </StackPanel>
-        <StackPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Background="Black" >
-            <TextBlock Text="" x:Name="txtError" Foreground="Red"/>
-        </StackPanel>
-        <StackPanel Grid.Row="7" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2">
-            <TextBlock x:Name="EventHubInformation" Height="auto" Foreground="White"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="auto" VerticalAlignment="Bottom" Grid.Row="9" Grid.ColumnSpan="2" >
-            <Button  Height="40" x:Name="StartCommand" Tag="STOPPED" Content="Start" Width="64" VerticalAlignment="Center" Margin="10" Click="StartCommand_Click" FontSize="10.667" Foreground="#FF959595" Background="#33595959"/>
-            <Button  Height="40" x:Name="SimulateCommand" Tag="STOPPED" Content="Simulate" Width="64" VerticalAlignment="Center" Margin="10" Click="SimulateCommand_Click" FontSize="10.667" Foreground="#FF959595" Background="#33595959" />
-            <Button  Height="40" x:Name="EnableRemoteCommand" Tag="ENABLEREMOTE" Content="Enable &#xD;&#xA;Remote" Width="64" VerticalAlignment="Center" Margin="10" Click="EnableRemote_Click" FontSize="10.667" Foreground="#FF959595" Background="#33595959" />
-            <Button  Height="40" x:Name="DisableRemoteCommand" Tag="DISABLEREMOTE" Content="Disable &#xD;&#xA;Remote" Width="64" VerticalAlignment="Center" Margin="10" Click="DisableRemote_Click" FontSize="10.667" Foreground="#FF959595" Background="#33595959" />
-        </StackPanel>
+        </Grid>
     </Grid>
 </Page>

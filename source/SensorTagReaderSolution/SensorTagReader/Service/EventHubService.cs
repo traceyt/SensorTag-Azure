@@ -22,6 +22,8 @@ namespace SensorTagReader
         private string sharedAccessPolicyName;
         private string sharedAccessPolicyKey;
 
+        App app;
+
         private EventHubService() { }
 
         public EventHubService(string serviceBusNamespace, string eventHubName, string sharedAccessPolicyName,
@@ -35,6 +37,9 @@ namespace SensorTagReader
 
         public async Task<bool> SendMessage(EventHubSensorMessage message)
         {
+            // get a hold of the current application
+            app = App.Current as SensorTagReader.App;
+
             string json = JsonConvert.SerializeObject(message, new JsonSerializerSettings() { Culture = new CultureInfo("en-US") });
 
             var resourceUri = String.Format("https://{0}.servicebus.windows.net/{1}/publishers/{2}",
@@ -47,10 +52,15 @@ namespace SensorTagReader
             var webClient = new Windows.Web.Http.HttpClient();
             webClient.DefaultRequestHeaders.Authorization = new HttpCredentialsHeaderValue("SharedAccessSignature", sas);
             webClient.DefaultRequestHeaders.TryAppendWithoutValidation("Content-Type", "application/atom+xml;type=entry;charset=utf-8");
+
+            // display the message that we are going to send
+            app.Messages = "sending..." + json;
+
             var request = new Windows.Web.Http.HttpRequestMessage(Windows.Web.Http.HttpMethod.Post, uri)
             {
                 Content = new HttpStringContent(json)
             };
+
             var nowait = await webClient.SendRequestAsync(request);
 
             return nowait.IsSuccessStatusCode;

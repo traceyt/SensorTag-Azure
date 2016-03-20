@@ -13,14 +13,12 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
-
-    <Grid>
-        <SplitView x:Name="ShellSplitView" DisplayMode="Overlay"
-               IsPaneOpen="False" CompactPaneLength="48" OpenPaneLength="200"
-               PaneBackground="Black">
-
+    <Grid Background="{StaticResource SplitViewBackgroundBrush}">
+        <SplitView x:Name="ShellSplitView"  Margin="0 48 0 0" DisplayMode="Overlay"
+               IsPaneOpen="True" CompactPaneLength="48" OpenPaneLength="200"
+               PaneBackground="{ThemeResource SplitViewBackgroundBrush}">
             <SplitView.Pane>
-                <StackPanel Margin="0 48 0 0">
+                <StackPanel>
                     <!-- Home button -->
                     <RadioButton Tag="&#xe10f;" Content="Home" Style="{StaticResource SplitViewNavButtonStyle}" Checked="OnHomeButtonChecked" IsChecked="True" />
 
@@ -38,10 +36,10 @@
                 Content="&#xE700;"
                 Width="40"
                 Height="40"
-                Background="Transparent"
+                Background="{StaticResource MenuButtonBackgroundBrush}"
                 Foreground="White"
                 VerticalAlignment="Top"
                 BorderThickness="0"
-                Click="HamburgerButton_Click" />
+                Click="OnMenuButtonClicked" />
     </Grid>
 </Page>

@@ -22,7 +22,6 @@ namespace SensorTagReader
         private void OnMenuButtonClicked(object sender, RoutedEventArgs e)
         {
             ShellSplitView.IsPaneOpen = !ShellSplitView.IsPaneOpen;
-            ((RadioButton)sender).IsChecked = false;
         }
 
         private void OnHomeButtonChecked(object sender, RoutedEventArgs e)
