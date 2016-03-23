@@ -17,6 +17,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using X2CodingLab.SensorTag.Sensors;
+using SensorTagReader.Controls;
+
 
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -38,6 +40,8 @@ namespace SensorTagReader.Pages
         int numberOfFailedCallsToEventHub;
         double currentSimulatedTemperature = 21.0F;
         Random simulatorRandomizer = new Random();
+
+
 
         // set the horse name and session id
         string _sessionID = Guid.NewGuid().ToString();
@@ -102,8 +106,19 @@ namespace SensorTagReader.Pages
                         });
                         numberOfCallsDoneToEventHub++;
                         MessagesSent.Text = app.Messages;
+                        X.Text = tagreader.CurrentValues.Movement.AccelX.ToString();
+                        Y.Text = tagreader.CurrentValues.Movement.AccelY.ToString();
+                        Z.Text = tagreader.CurrentValues.Movement.AccelZ.ToString();
                     }
                     catch { numberOfFailedCallsToEventHub++; }
+
+                    // now try and update the graph
+                    AccelerometerGraph.MovementMeasurementValue m = new AccelerometerGraph.MovementMeasurementValue();
+                    m.Name = tagreader.CurrentValues.SensorFriendlyName;
+                    m.Value = tagreader.CurrentValues.Movement;
+
+                    AccelGraph.movementMeasurementValue = m;
+                  
                 }
 
             }
@@ -308,6 +323,11 @@ namespace SensorTagReader.Pages
         private void SimulateCommand_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+        public class MovementMeasurementValue
+        {
+            public string Name { get; set; }
+            public Movement.MovementMeasurement Value { get; set; }
         }
     }
 }

@@ -5,7 +5,7 @@
     xmlns:local="using:SensorTagReader.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:graph="using:SensorTagReader.Pages"
+    xmlns:graph="using:SensorTagReader.Controls"
     mc:Ignorable="d">
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" x:Name="MainGrid">
 
@@ -139,11 +139,17 @@
                 <StackPanel Grid.Row="1">
                     <TextBlock Text="Messages" Foreground="White" />
                     <TextBlock x:Name="MessagesSent" TextWrapping="Wrap" Foreground="White"/>
+                    <TextBlock Text="X" Foreground="White"/>
+                    <TextBlock x:Name="X" TextWrapping="Wrap" Foreground="White"/>
+                    <TextBlock Text="Y" Foreground="White"/>
+                    <TextBlock x:Name="Y" TextWrapping="Wrap" Foreground="White"/>
+                    <TextBlock Text="Z" Foreground="White"/>
+                    <TextBlock x:Name="Z" TextWrapping="Wrap" Foreground="White"/>
                 </StackPanel>
             </Grid>
         </Grid>
         <Grid x:Name="FourthGrid" Background="Gray" >
-            <graph:AccelerometerGraph></graph:AccelerometerGraph>
+            <graph:AccelerometerGraph x:Name="AccelGraph"></graph:AccelerometerGraph>
         </Grid>
     </Grid>
 </Page>
