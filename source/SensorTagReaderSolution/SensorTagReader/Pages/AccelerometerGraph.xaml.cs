@@ -137,8 +137,7 @@ namespace SensorTagReader.Controls
             ((LineSeries)LineChartWithAxes.Series[1]).DependentRangeAxis =
                 new LinearAxis
                 {
-                    ,
-                    Visibility = Visibility.Collapsed,
+                   // Visibility = Visibility.Collapsed,
                     Minimum = min,
                     Maximum = max,
                     Orientation = AxisOrientation.Y,
@@ -150,7 +149,7 @@ namespace SensorTagReader.Controls
             ((LineSeries)LineChartWithAxes.Series[2]).DependentRangeAxis =
                 new LinearAxis
                 {
-                    Visibility = Visibility.Collapsed,
+                    //Visibility = Visibility.Collapsed,
                     Minimum = min,
                     Maximum = max,
                     Orientation = AxisOrientation.Y,
