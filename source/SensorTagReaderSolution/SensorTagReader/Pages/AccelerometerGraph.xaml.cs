@@ -113,10 +113,22 @@ namespace SensorTagReader.Controls
                 itemsZ.Add(_zItems[i]);
             }
 
-            double maxAccel = itemsX.Max(t => t.Value);
-            double minAccel = itemsX.Min(t => t.Value);
-            double max = Math.Max(maxAccel, 1);
-            double min = Math.Min(maxAccel, -1);
+            double maxAccelX = itemsX.Max(t => t.Value);
+            double minAccelX = itemsX.Min(t => t.Value);
+
+            double maxAccelY = itemsX.Max(t => t.Value);
+            double minAccelY = itemsX.Min(t => t.Value);
+
+            double maxAccelZ = itemsX.Max(t => t.Value);
+            double minAccelZ = itemsX.Min(t => t.Value);
+
+            double max = Math.Max(maxAccelX, maxAccelY);
+            max = Math.Max(max, maxAccelZ);
+            max = Math.Max(max, 1);
+
+            double min = Math.Min(minAccelX, minAccelY);
+            min = Math.Min(min, maxAccelZ);
+            min = Math.Min(min, -1);
 
             ((LineSeries)LineChartWithAxes.Series[0]).ItemsSource = itemsX;
             ((LineSeries)LineChartWithAxes.Series[1]).ItemsSource = itemsY;
